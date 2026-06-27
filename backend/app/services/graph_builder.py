@@ -10,13 +10,19 @@ import threading
 from typing import Dict, Any, List, Optional, Callable
 from dataclasses import dataclass
 
-from zep_cloud.client import Zep
-from zep_cloud import EpisodeData, EntityEdgeSourceTarget
+try:
+    from zep_cloud.client import Zep
+    from zep_cloud import EpisodeData, EntityEdgeSourceTarget
+except ImportError:  # Local mode can run without importing the Zep SDK.
+    Zep = None
+    EpisodeData = None
+    EntityEdgeSourceTarget = None
 
 from ..config import Config
 from ..models.task import TaskManager, TaskStatus
 from ..utils.zep_paging import fetch_all_nodes, fetch_all_edges
 from .text_processor import TextProcessor
+from .local_graph_store import LocalGraphExtractor, LocalGraphStore
 from ..utils.locale import t, get_locale, set_locale
 
 
@@ -44,9 +50,17 @@ class GraphBuilderService:
     """
     
     def __init__(self, api_key: Optional[str] = None):
+        self.use_local = Config.MEMORY_BACKEND != "zep"
+        self.local_store = LocalGraphStore() if self.use_local else None
         self.api_key = api_key or Config.ZEP_API_KEY
+        if self.use_local:
+            self.client = None
+            self.task_manager = TaskManager()
+            return
         if not self.api_key:
             raise ValueError("ZEP_API_KEY 未配置")
+        if Zep is None:
+            raise ValueError("zep-cloud dependency is not installed")
         
         self.client = Zep(api_key=self.api_key)
         self.task_manager = TaskManager()
@@ -192,6 +206,9 @@ class GraphBuilderService:
     
     def create_graph(self, name: str) -> str:
         """创建Zep图谱（公开方法）"""
+        if self.use_local:
+            return self.local_store.create_graph(name)
+
         graph_id = f"mirofish_{uuid.uuid4().hex[:16]}"
         
         self.client.graph.create(
@@ -204,6 +221,12 @@ class GraphBuilderService:
     
     def set_ontology(self, graph_id: str, ontology: Dict[str, Any]):
         """设置图谱本体（公开方法）"""
+        if self.use_local:
+            graph = self.local_store.load_graph(graph_id)
+            graph["ontology"] = ontology
+            self.local_store.save_graph(graph)
+            return
+
         import warnings
         from typing import Optional
         from pydantic import Field
@@ -299,6 +322,24 @@ class GraphBuilderService:
         progress_callback: Optional[Callable] = None
     ) -> List[str]:
         """分批添加文本到图谱，返回所有 episode 的 uuid 列表"""
+        if self.use_local:
+            graph = self.local_store.load_graph(graph_id)
+            extractor = LocalGraphExtractor()
+            extracted = extractor.extract(chunks, graph.get("ontology", {}), progress_callback)
+            graph["nodes"] = extracted["nodes"]
+            graph["edges"] = extracted["edges"]
+            graph["episodes"] = [
+                {
+                    "uuid": f"episode_{uuid.uuid4().hex[:12]}",
+                    "data": chunk,
+                    "processed": True,
+                    "created_at": time.time(),
+                }
+                for chunk in chunks
+            ]
+            self.local_store.save_graph(graph)
+            return [episode["uuid"] for episode in graph["episodes"]]
+
         episode_uuids = []
         total_chunks = len(chunks)
         
@@ -351,6 +392,11 @@ class GraphBuilderService:
         timeout: int = 600
     ):
         """等待所有 episode 处理完成（通过查询每个 episode 的 processed 状态）"""
+        if self.use_local:
+            if progress_callback:
+                progress_callback("Local graph processing complete", 1.0)
+            return
+
         if not episode_uuids:
             if progress_callback:
                 progress_callback(t('progress.noEpisodesWait'), 1.0)
@@ -402,6 +448,20 @@ class GraphBuilderService:
     
     def _get_graph_info(self, graph_id: str) -> GraphInfo:
         """获取图谱信息"""
+        if self.use_local:
+            graph_data = self.local_store.graph_data(graph_id)
+            entity_types = set()
+            for node in graph_data["nodes"]:
+                for label in node.get("labels", []):
+                    if label not in ["Entity", "Node"]:
+                        entity_types.add(label)
+            return GraphInfo(
+                graph_id=graph_id,
+                node_count=graph_data["node_count"],
+                edge_count=graph_data["edge_count"],
+                entity_types=list(entity_types),
+            )
+
         # 获取节点（分页）
         nodes = fetch_all_nodes(self.client, graph_id)
 
@@ -433,6 +493,9 @@ class GraphBuilderService:
         Returns:
             包含nodes和edges的字典，包括时间信息、属性等详细数据
         """
+        if self.use_local:
+            return self.local_store.graph_data(graph_id)
+
         nodes = fetch_all_nodes(self.client, graph_id)
         edges = fetch_all_edges(self.client, graph_id)
 
@@ -502,5 +565,7 @@ class GraphBuilderService:
     
     def delete_graph(self, graph_id: str):
         """删除图谱"""
+        if self.use_local:
+            self.local_store.delete_graph(graph_id)
+            return
         self.client.graph.delete(graph_id=graph_id)
-

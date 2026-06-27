@@ -12,11 +12,15 @@ from dataclasses import dataclass
 from datetime import datetime
 from queue import Queue, Empty
 
-from zep_cloud.client import Zep
+try:
+    from zep_cloud.client import Zep
+except ImportError:
+    Zep = None
 
 from ..config import Config
 from ..utils.logger import get_logger
 from ..utils.locale import get_locale, set_locale
+from .local_graph_store import LocalGraphStore
 
 logger = get_logger('mirofish.zep_graph_memory_updater')
 
@@ -238,12 +242,18 @@ class ZepGraphMemoryUpdater:
             api_key: Zep API Key（可选，默认从配置读取）
         """
         self.graph_id = graph_id
+        self.use_local = Config.MEMORY_BACKEND != "zep"
+        self.local_store = LocalGraphStore() if self.use_local else None
         self.api_key = api_key or Config.ZEP_API_KEY
         
-        if not self.api_key:
+        if self.use_local:
+            self.client = None
+        elif not self.api_key:
             raise ValueError("ZEP_API_KEY未配置")
-        
-        self.client = Zep(api_key=self.api_key)
+        else:
+            if Zep is None:
+                raise ValueError("zep-cloud dependency is not installed")
+            self.client = Zep(api_key=self.api_key)
         
         # 活动队列
         self._activity_queue: Queue = Queue()
@@ -411,6 +421,17 @@ class ZepGraphMemoryUpdater:
         # 带重试的发送
         for attempt in range(self.MAX_RETRIES):
             try:
+                if self.use_local:
+                    self.local_store.add_activity(self.graph_id, {
+                        "platform": platform,
+                        "text": combined_text,
+                        "activities": [activity.__dict__ for activity in activities],
+                    })
+                    self._total_sent += 1
+                    self._total_items_sent += len(activities)
+                    logger.info(f"成功保存 {len(activities)} 条活动到本地图谱 {self.graph_id}")
+                    return
+
                 self.client.graph.add(
                     graph_id=self.graph_id,
                     type="text",

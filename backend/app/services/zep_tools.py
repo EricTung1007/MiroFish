@@ -10,16 +10,21 @@ Zep检索工具服务
 
 import time
 import json
+import os
 from typing import Dict, Any, List, Optional
 from dataclasses import dataclass, field
 
-from zep_cloud.client import Zep
+try:
+    from zep_cloud.client import Zep
+except ImportError:
+    Zep = None
 
 from ..config import Config
 from ..utils.logger import get_logger
 from ..utils.llm_client import LLMClient
 from ..utils.locale import get_locale, t
 from ..utils.zep_paging import fetch_all_nodes, fetch_all_edges
+from .local_graph_store import LocalGraphStore
 
 logger = get_logger('mirofish.zep_tools')
 
@@ -423,9 +428,18 @@ class ZepToolsService:
     RETRY_DELAY = 2.0
     
     def __init__(self, api_key: Optional[str] = None, llm_client: Optional[LLMClient] = None):
+        self.use_local = Config.MEMORY_BACKEND != "zep"
+        self.local_store = LocalGraphStore() if self.use_local else None
         self.api_key = api_key or Config.ZEP_API_KEY
+        if self.use_local:
+            self.client = None
+            self._llm_client = llm_client
+            logger.info("Local graph tools initialized")
+            return
         if not self.api_key:
             raise ValueError("ZEP_API_KEY 未配置")
+        if Zep is None:
+            raise ValueError("zep-cloud dependency is not installed")
         
         self.client = Zep(api_key=self.api_key)
         # LLM客户端用于InsightForge生成子问题
@@ -484,6 +498,9 @@ class ZepToolsService:
             SearchResult: 搜索结果
         """
         logger.info(t("console.graphSearch", graphId=graph_id, query=query[:50]))
+
+        if self.use_local:
+            return self._local_search(graph_id, query, limit, "both" if scope == "both" else scope)
         
         # 尝试使用Zep Cloud Search API
         try:
@@ -659,6 +676,19 @@ class ZepToolsService:
         """
         logger.info(t("console.fetchingAllNodes", graphId=graph_id))
 
+        if self.use_local:
+            result = []
+            for node in self.local_store.graph_data(graph_id)["nodes"]:
+                result.append(NodeInfo(
+                    uuid=str(node.get("uuid", "")),
+                    name=node.get("name", ""),
+                    labels=node.get("labels", []),
+                    summary=node.get("summary", ""),
+                    attributes=node.get("attributes", {}),
+                ))
+            logger.info(t("console.fetchedNodes", count=len(result)))
+            return result
+
         nodes = fetch_all_nodes(self.client, graph_id)
 
         result = []
@@ -687,6 +717,27 @@ class ZepToolsService:
             边列表（包含created_at, valid_at, invalid_at, expired_at）
         """
         logger.info(t("console.fetchingAllEdges", graphId=graph_id))
+
+        if self.use_local:
+            result = []
+            for edge in self.local_store.graph_data(graph_id)["edges"]:
+                edge_info = EdgeInfo(
+                    uuid=str(edge.get("uuid", "")),
+                    name=edge.get("name", ""),
+                    fact=edge.get("fact", ""),
+                    source_node_uuid=edge.get("source_node_uuid", ""),
+                    target_node_uuid=edge.get("target_node_uuid", ""),
+                    source_node_name=edge.get("source_node_name"),
+                    target_node_name=edge.get("target_node_name"),
+                )
+                if include_temporal:
+                    edge_info.created_at = edge.get("created_at")
+                    edge_info.valid_at = edge.get("valid_at")
+                    edge_info.invalid_at = edge.get("invalid_at")
+                    edge_info.expired_at = edge.get("expired_at")
+                result.append(edge_info)
+            logger.info(t("console.fetchedEdges", count=len(result)))
+            return result
 
         edges = fetch_all_edges(self.client, graph_id)
 
@@ -726,6 +777,24 @@ class ZepToolsService:
         logger.info(t("console.fetchingNodeDetail", uuid=node_uuid[:8]))
         
         try:
+            if self.use_local:
+                graph_ids = [
+                    filename[:-5]
+                    for filename in os.listdir(self.local_store.base_dir)
+                    if filename.endswith(".json")
+                ]
+                for graph_id in graph_ids:
+                    for node in self.local_store.graph_data(graph_id)["nodes"]:
+                        if node.get("uuid") == node_uuid:
+                            return NodeInfo(
+                                uuid=node.get("uuid", ""),
+                                name=node.get("name", ""),
+                                labels=node.get("labels", []),
+                                summary=node.get("summary", ""),
+                                attributes=node.get("attributes", {}),
+                            )
+                return None
+
             node = self._call_with_retry(
                 func=lambda: self.client.graph.node.get(uuid_=node_uuid),
                 operation_name=t("console.fetchNodeDetailOp", uuid=node_uuid[:8])
