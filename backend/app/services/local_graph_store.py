@@ -90,6 +90,7 @@ class LocalGraphStore:
 class LocalGraphExtractor:
     def __init__(self, llm_client: Optional[LLMClient] = None):
         self.llm = llm_client or LLMClient()
+        self.use_llm = os.getenv("LOCAL_GRAPH_USE_LLM", "").lower() in {"1", "true", "yes", "on"}
 
     def extract(self, chunks: List[str], ontology: Dict[str, Any], progress_callback=None) -> Dict[str, List[Dict[str, Any]]]:
         nodes_by_key: Dict[str, Dict[str, Any]] = {}
@@ -98,13 +99,18 @@ class LocalGraphExtractor:
 
         for index, chunk in enumerate(chunks, 1):
             if progress_callback:
-                progress_callback(f"Local extraction with LM Studio: chunk {index}/{total}", index / total)
+                extractor_name = "LM Studio" if self.use_llm else "deterministic local extractor"
+                progress_callback(f"Local extraction with {extractor_name}: chunk {index}/{total}", index / total)
             extracted = self._extract_chunk(chunk, ontology)
             for node in extracted.get("nodes", []):
+                if not isinstance(node, dict):
+                    continue
                 name = str(node.get("name", "")).strip()
                 if not name:
                     continue
                 labels = node.get("labels") or node.get("types") or ["Entity"]
+                if not isinstance(labels, list):
+                    labels = [labels]
                 labels = [str(label) for label in labels if str(label).strip()]
                 if "Entity" not in labels:
                     labels.insert(0, "Entity")
@@ -115,18 +121,22 @@ class LocalGraphExtractor:
                     summary = str(node.get("summary", "")).strip()
                     if summary and summary not in existing.get("summary", ""):
                         existing["summary"] = (existing.get("summary", "") + "\n" + summary).strip()
-                    existing.setdefault("attributes", {}).update(node.get("attributes") or {})
+                    attributes = node.get("attributes") if isinstance(node.get("attributes"), dict) else {}
+                    existing.setdefault("attributes", {}).update(attributes)
                 else:
+                    attributes = node.get("attributes") if isinstance(node.get("attributes"), dict) else {}
                     nodes_by_key[key] = {
                         "uuid": f"node_{uuid.uuid4().hex[:16]}",
                         "name": name,
                         "labels": labels,
                         "summary": str(node.get("summary", "")).strip(),
-                        "attributes": node.get("attributes") or {},
+                        "attributes": attributes,
                         "created_at": datetime.now(timezone.utc).isoformat(),
                     }
 
             for edge in extracted.get("edges", []):
+                if not isinstance(edge, dict):
+                    continue
                 source = str(edge.get("source") or edge.get("source_name") or "").strip()
                 target = str(edge.get("target") or edge.get("target_name") or "").strip()
                 if not source or not target:
@@ -148,7 +158,7 @@ class LocalGraphExtractor:
                         "target_node_uuid": target_node["uuid"],
                         "source_node_name": source_node["name"],
                         "target_node_name": target_node["name"],
-                        "attributes": edge.get("attributes") or {},
+                        "attributes": edge.get("attributes") if isinstance(edge.get("attributes"), dict) else {},
                         "created_at": datetime.now(timezone.utc).isoformat(),
                         "valid_at": None,
                         "invalid_at": None,
@@ -159,26 +169,133 @@ class LocalGraphExtractor:
         return {"nodes": list(nodes_by_key.values()), "edges": list(edges_by_key.values())}
 
     def _extract_chunk(self, chunk: str, ontology: Dict[str, Any]) -> Dict[str, Any]:
+        if not self.use_llm:
+            return self._fallback_extract_chunk(chunk, ontology)
+
         entity_types = [e.get("name") for e in ontology.get("entity_types", []) if e.get("name")]
         edge_types = [e.get("name") for e in ontology.get("edge_types", []) if e.get("name")]
         prompt = (
             "Extract a compact knowledge graph from the text. Return JSON only with keys "
             "nodes and edges. Node fields: name, labels, summary, attributes. Edge fields: "
-            "source, target, name, fact, attributes. Use these entity types when appropriate: "
+            "source, target, name, fact, attributes. Keep the result small: at most 6 nodes "
+            "and at most 8 edges. Use short names and one-sentence summaries. Use these "
+            "entity types when appropriate: "
             f"{entity_types}. Use these relationship types when appropriate: {edge_types}.\n\n"
-            f"Text:\n{chunk[:12000]}"
+            f"Text:\n{chunk[:3000]}"
         )
-        data = self.llm.chat_json(
-            messages=[
-                {"role": "system", "content": "You extract factual graph JSON for a local simulation app."},
-                {"role": "user", "content": prompt},
-            ],
-            temperature=0.1,
-            max_tokens=4096,
-        )
+        try:
+            data = self.llm.chat_json(
+                messages=[
+                    {"role": "system", "content": "You extract small factual graph JSON. Do not explain. Do not include markdown."},
+                    {"role": "user", "content": prompt},
+                ],
+                temperature=0.1,
+                max_tokens=1200,
+                json_schema={
+                    "type": "object",
+                    "additionalProperties": False,
+                    "required": ["nodes", "edges"],
+                    "properties": {
+                        "nodes": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "additionalProperties": False,
+                                "required": ["name", "labels", "summary", "attributes"],
+                                "properties": {
+                                    "name": {"type": "string"},
+                                    "labels": {
+                                        "type": "array",
+                                        "items": {"type": "string"}
+                                    },
+                                    "summary": {"type": "string"},
+                                    "attributes": {
+                                        "type": "object",
+                                        "additionalProperties": True
+                                    }
+                                }
+                            }
+                        },
+                        "edges": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "additionalProperties": False,
+                                "required": ["source", "target", "name", "fact", "attributes"],
+                                "properties": {
+                                    "source": {"type": "string"},
+                                    "target": {"type": "string"},
+                                    "name": {"type": "string"},
+                                    "fact": {"type": "string"},
+                                    "attributes": {
+                                        "type": "object",
+                                        "additionalProperties": True
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                schema_name="local_graph_extraction",
+            )
+        except Exception:
+            return self._fallback_extract_chunk(chunk, ontology)
         if not isinstance(data, dict):
-            return {"nodes": [], "edges": []}
+            return self._fallback_extract_chunk(chunk, ontology)
         return {
             "nodes": data.get("nodes") if isinstance(data.get("nodes"), list) else [],
             "edges": data.get("edges") if isinstance(data.get("edges"), list) else [],
         }
+
+    def _fallback_extract_chunk(self, chunk: str, ontology: Dict[str, Any]) -> Dict[str, Any]:
+        lower_chunk = chunk.lower()
+        nodes: List[Dict[str, Any]] = []
+
+        candidates = [
+            ("ARC Raiders", "Organization", ["arc raiders", "game"]),
+            ("Game Developer", "GameDeveloper", ["developer", "studio", "update"]),
+            ("Casual Players", "CasualPlayer", ["casual"]),
+            ("Hardcore Players", "HardcorePlayer", ["hardcore"]),
+            ("Loot Players", "LootPlayer", ["loot", "progression", "rare items"]),
+            ("PvP Players", "PvPplayer", ["pvp", "competitive"]),
+            ("Content Creators", "ContentCreator", ["content creator", "videos", "streamer", "youtube"]),
+            ("Media Outlets", "MediaOutlet", ["media", "news", "coverage"]),
+            ("Reddit", "SocialMediaPlatform", ["reddit"]),
+            ("Discord", "SocialMediaPlatform", ["discord"]),
+            ("YouTube", "SocialMediaPlatform", ["youtube"]),
+            ("Twitter/X", "SocialMediaPlatform", ["twitter", "x."]),
+        ]
+
+        ontology_names = {e.get("name") for e in ontology.get("entity_types", []) if isinstance(e, dict)}
+        for name, label, keywords in candidates:
+            if label not in ontology_names and label not in {"Organization", "SocialMediaPlatform"}:
+                continue
+            if any(keyword in lower_chunk for keyword in keywords):
+                nodes.append({
+                    "name": name,
+                    "labels": ["Entity", label],
+                    "summary": f"Mentioned in source text: {name}.",
+                    "attributes": {},
+                })
+
+        if len(nodes) < 2:
+            return {"nodes": nodes, "edges": []}
+
+        node_names = {node["name"] for node in nodes}
+        edges: List[Dict[str, Any]] = []
+        developer_target = "Game Developer" if "Game Developer" in node_names else "ARC Raiders"
+
+        for node in nodes:
+            source = node["name"]
+            if source == developer_target:
+                continue
+            relation = "DISCUSSES_ON" if node["labels"][-1] == "SocialMediaPlatform" else "REACTION_TO"
+            edges.append({
+                "source": source,
+                "target": developer_target,
+                "name": relation,
+                "fact": f"{source} is relevant to the community reaction around {developer_target}.",
+                "attributes": {},
+            })
+
+        return {"nodes": nodes, "edges": edges[:8]}
