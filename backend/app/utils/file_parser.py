@@ -4,6 +4,8 @@
 """
 
 import os
+import re
+import subprocess
 from pathlib import Path
 from typing import List, Optional
 
@@ -25,6 +27,18 @@ def _read_text_with_fallback(file_path: str) -> str:
         解码后的文本内容
     """
     data = Path(file_path).read_bytes()
+
+    if data.lstrip().startswith(b'{\\rtf'):
+        try:
+            result = subprocess.run(
+                ['textutil', '-convert', 'txt', '-stdout', file_path],
+                check=True,
+                capture_output=True,
+                text=True
+            )
+            return result.stdout
+        except Exception:
+            return _strip_rtf_markup(data.decode('latin-1', errors='replace'))
     
     # 首先尝试 UTF-8
     try:
@@ -56,6 +70,15 @@ def _read_text_with_fallback(file_path: str) -> str:
         encoding = 'utf-8'
     
     return data.decode(encoding, errors='replace')
+
+
+def _strip_rtf_markup(text: str) -> str:
+    """Best-effort fallback for mislabeled RTF text files."""
+    text = re.sub(r"\\'[0-9a-fA-F]{2}", lambda m: bytes.fromhex(m.group(0)[2:]).decode('cp1252', errors='replace'), text)
+    text = re.sub(r'\\par[d]?', '\n', text)
+    text = re.sub(r'\\[a-zA-Z]+-?\d* ?', '', text)
+    text = re.sub(r'[{}]', '', text)
+    return text.strip()
 
 
 class FileParser:
@@ -200,4 +223,3 @@ def split_text_into_chunks(
         start = end - overlap if end < len(text) else len(text)
     
     return chunks
-

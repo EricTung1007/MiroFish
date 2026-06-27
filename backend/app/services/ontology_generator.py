@@ -15,6 +15,9 @@ logger = logging.getLogger(__name__)
 
 def _to_pascal_case(name: str) -> str:
     """将任意格式的名称转换为 PascalCase（如 'works_for' -> 'WorksFor', 'person' -> 'Person'）"""
+    if not isinstance(name, str):
+        return 'Unknown'
+    name = re.split(r'[,:\n\r]', name, maxsplit=1)[0]
     # 按非字母数字字符分割
     parts = re.split(r'[^a-zA-Z0-9]+', name)
     # 再按 camelCase 边界分割（如 'camelCase' -> ['camel', 'Case']）
@@ -23,7 +26,33 @@ def _to_pascal_case(name: str) -> str:
         words.extend(re.sub(r'([a-z])([A-Z])', r'\1_\2', part).split('_'))
     # 每个词首字母大写，过滤空串
     result = ''.join(word.capitalize() for word in words if word)
-    return result if result else 'Unknown'
+    if not result:
+        return 'Unknown'
+    return result[:48]
+
+
+def _to_snake_case(name: str, fallback: str) -> str:
+    """Convert arbitrary model output into a safe snake_case attribute name."""
+    if not isinstance(name, str):
+        return fallback
+    value = re.sub(r'([a-z0-9])([A-Z])', r'\1_\2', name)
+    value = re.sub(r'[^a-zA-Z0-9]+', '_', value).strip('_').lower()
+    if not value or not re.match(r'^[a-z_][a-z0-9_]*$', value):
+        return fallback
+    if value in {"name", "uuid", "group_id", "created_at", "summary"}:
+        return fallback
+    return value
+
+
+def _to_edge_name(name: str, fallback: str) -> str:
+    """Convert arbitrary model output into a safe UPPER_SNAKE_CASE edge name."""
+    if not isinstance(name, str):
+        return fallback
+    value = re.sub(r'([a-z0-9])([A-Z])', r'\1_\2', name)
+    value = re.sub(r'[^a-zA-Z0-9]+', '_', value).strip('_').upper()
+    if not value or not re.match(r'^[A-Z][A-Z0-9_]*$', value):
+        return fallback
+    return value
 
 
 # 本体生成的系统提示词
@@ -173,6 +202,89 @@ B. **具体类型（8个，根据文本内容设计）**：
 """
 
 
+ONTOLOGY_RESPONSE_SCHEMA = {
+    "type": "object",
+    "additionalProperties": False,
+    "required": ["entity_types", "edge_types", "analysis_summary"],
+    "properties": {
+        "entity_types": {
+            "type": "array",
+            "minItems": 10,
+            "maxItems": 10,
+            "items": {
+                "type": "object",
+                "additionalProperties": False,
+                "required": ["name", "description", "attributes", "examples"],
+                "properties": {
+                    "name": {"type": "string"},
+                    "description": {"type": "string"},
+                    "attributes": {
+                        "type": "array",
+                        "minItems": 1,
+                        "maxItems": 3,
+                        "items": {
+                            "type": "object",
+                            "additionalProperties": False,
+                            "required": ["name", "type", "description"],
+                            "properties": {
+                                "name": {"type": "string"},
+                                "type": {"type": "string", "enum": ["text"]},
+                                "description": {"type": "string"}
+                            }
+                        }
+                    },
+                    "examples": {
+                        "type": "array",
+                        "items": {"type": "string"}
+                    }
+                }
+            }
+        },
+        "edge_types": {
+            "type": "array",
+            "minItems": 6,
+            "maxItems": 10,
+            "items": {
+                "type": "object",
+                "additionalProperties": False,
+                "required": ["name", "description", "source_targets", "attributes"],
+                "properties": {
+                    "name": {"type": "string"},
+                    "description": {"type": "string"},
+                    "source_targets": {
+                        "type": "array",
+                        "minItems": 1,
+                        "items": {
+                            "type": "object",
+                            "additionalProperties": False,
+                            "required": ["source", "target"],
+                            "properties": {
+                                "source": {"type": "string"},
+                                "target": {"type": "string"}
+                            }
+                        }
+                    },
+                    "attributes": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "additionalProperties": False,
+                            "required": ["name", "type", "description"],
+                            "properties": {
+                                "name": {"type": "string"},
+                                "type": {"type": "string"},
+                                "description": {"type": "string"}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "analysis_summary": {"type": "string"}
+    }
+}
+
+
 class OntologyGenerator:
     """
     本体生成器
@@ -217,7 +329,9 @@ class OntologyGenerator:
         result = self.llm_client.chat_json(
             messages=messages,
             temperature=0.3,
-            max_tokens=4096
+            max_tokens=4096,
+            json_schema=ONTOLOGY_RESPONSE_SCHEMA,
+            schema_name="ontology_response"
         )
         
         # 验证和后处理
@@ -361,6 +475,36 @@ class OntologyGenerator:
             ],
             "examples": ["small business", "community group"]
         }
+
+        default_specific_types = [
+            {
+                "name": "CommunityGroup",
+                "description": "A group of users sharing a recognizable public stance.",
+                "attributes": [
+                    {"name": "group_label", "type": "text", "description": "Public label for the group"},
+                    {"name": "stance", "type": "text", "description": "Typical stance in the discussion"}
+                ],
+                "examples": ["returning players", "update supporters"]
+            },
+            {
+                "name": "PlatformAccount",
+                "description": "A public social account participating in the discussion.",
+                "attributes": [
+                    {"name": "handle", "type": "text", "description": "Account handle"},
+                    {"name": "account_role", "type": "text", "description": "Role in the discussion"}
+                ],
+                "examples": ["official account", "fan account"]
+            },
+            {
+                "name": "ForumCommunity",
+                "description": "A forum or subreddit-like community where reactions spread.",
+                "attributes": [
+                    {"name": "community_name", "type": "text", "description": "Community name"},
+                    {"name": "focus_area", "type": "text", "description": "Main discussion focus"}
+                ],
+                "examples": ["game subreddit", "Discord community"]
+            }
+        ]
         
         # 检查是否已有兜底类型
         entity_names = {e["name"] for e in result["entity_types"]}
@@ -387,13 +531,104 @@ class OntologyGenerator:
             
             # 添加兜底类型
             result["entity_types"].extend(fallbacks_to_add)
+
+        # Fill short model outputs up to 10 types while keeping Person/Organization last.
+        while len(result["entity_types"]) < MAX_ENTITY_TYPES:
+            existing = {e["name"] for e in result["entity_types"]}
+            filler = next((e for e in default_specific_types if e["name"] not in existing), None)
+            if not filler:
+                break
+            result["entity_types"] = [
+                e for e in result["entity_types"]
+                if e["name"] not in {"Person", "Organization"}
+            ]
+            result["entity_types"].append(filler)
+            result["entity_types"].append(person_fallback)
+            result["entity_types"].append(organization_fallback)
         
         # 最终确保不超过限制（防御性编程）
         if len(result["entity_types"]) > MAX_ENTITY_TYPES:
             result["entity_types"] = result["entity_types"][:MAX_ENTITY_TYPES]
-        
-        if len(result["edge_types"]) > MAX_EDGE_TYPES:
-            result["edge_types"] = result["edge_types"][:MAX_EDGE_TYPES]
+
+        # Clean attribute names and types after final entity list is known.
+        for entity_index, entity in enumerate(result["entity_types"]):
+            clean_attrs = []
+            seen_attrs = set()
+            for attr_index, attr in enumerate(entity.get("attributes", [])):
+                clean_name = _to_snake_case(attr.get("name"), f"attribute_{attr_index + 1}")
+                if clean_name in seen_attrs:
+                    continue
+                seen_attrs.add(clean_name)
+                clean_attrs.append({
+                    "name": clean_name,
+                    "type": "text",
+                    "description": str(attr.get("description") or clean_name)[:100]
+                })
+            if not clean_attrs:
+                clean_attrs.append({
+                    "name": f"attribute_{entity_index + 1}",
+                    "type": "text",
+                    "description": "Relevant public attribute"
+                })
+            entity["attributes"] = clean_attrs[:3]
+
+        entity_names = {e["name"] for e in result["entity_types"]}
+        primary_entity = result["entity_types"][0]["name"] if result["entity_types"] else "Person"
+        secondary_entity = result["entity_types"][1]["name"] if len(result["entity_types"]) > 1 else "Organization"
+
+        default_edges = [
+            ("COMMENTS_ON", "Comments on another actor's public position.", primary_entity, secondary_entity),
+            ("RESPONDS_TO", "Responds to another actor's public statement.", secondary_entity, primary_entity),
+            ("SUPPORTS", "Publicly supports another actor or position.", "Person", primary_entity),
+            ("OPPOSES", "Publicly opposes another actor or position.", "Person", primary_entity),
+            ("INFLUENCES", "Shapes another actor's opinion or behavior.", primary_entity, "Person"),
+            ("REPORTS_ON", "Reports on another actor or event.", secondary_entity, primary_entity),
+        ]
+
+        clean_edges = []
+        seen_edges = set()
+        for edge_index, edge in enumerate(result["edge_types"]):
+            edge_name = _to_edge_name(edge.get("name"), default_edges[edge_index % len(default_edges)][0])
+            if edge_name in seen_edges:
+                continue
+            seen_edges.add(edge_name)
+
+            source_targets = []
+            for st in edge.get("source_targets", []):
+                source = st.get("source")
+                target = st.get("target")
+                if source in entity_names and target in entity_names:
+                    source_targets.append({"source": source, "target": target})
+            if not source_targets:
+                default = default_edges[edge_index % len(default_edges)]
+                source = default[2] if default[2] in entity_names else primary_entity
+                target = default[3] if default[3] in entity_names else secondary_entity
+                source_targets.append({"source": source, "target": target})
+
+            clean_edges.append({
+                "name": edge_name,
+                "description": str(edge.get("description") or edge_name)[:100],
+                "source_targets": source_targets[:3],
+                "attributes": []
+            })
+
+        for name, description, source, target in default_edges:
+            if len(clean_edges) >= 6:
+                break
+            if name in seen_edges:
+                continue
+            clean_edges.append({
+                "name": name,
+                "description": description,
+                "source_targets": [{
+                    "source": source if source in entity_names else primary_entity,
+                    "target": target if target in entity_names else secondary_entity
+                }],
+                "attributes": []
+            })
+            seen_edges.add(name)
+
+        result["edge_types"] = clean_edges[:MAX_EDGE_TYPES]
         
         return result
     
@@ -503,4 +738,3 @@ class OntologyGenerator:
         code_lines.append('}')
         
         return '\n'.join(code_lines)
-

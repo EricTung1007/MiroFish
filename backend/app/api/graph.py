@@ -248,6 +248,7 @@ def generate_ontology():
         })
         
     except Exception as e:
+        logger.exception("本体生成失败")
         return jsonify({
             "success": False,
             "error": str(e),

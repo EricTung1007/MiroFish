@@ -6,6 +6,7 @@ LLM客户端封装
 import json
 import re
 from typing import Optional, Dict, Any, List
+from openai import BadRequestError
 from openai import OpenAI
 
 from ..config import Config
@@ -71,7 +72,9 @@ class LLMClient:
         self,
         messages: List[Dict[str, str]],
         temperature: float = 0.3,
-        max_tokens: int = 4096
+        max_tokens: int = 4096,
+        json_schema: Optional[Dict[str, Any]] = None,
+        schema_name: str = "json_response"
     ) -> Dict[str, Any]:
         """
         发送聊天请求并返回JSON
@@ -84,12 +87,31 @@ class LLMClient:
         Returns:
             解析后的JSON对象
         """
-        response = self.chat(
-            messages=messages,
-            temperature=temperature,
-            max_tokens=max_tokens,
-            response_format={"type": "json_object"}
-        )
+        try:
+            response = self.chat(
+                messages=messages,
+                temperature=temperature,
+                max_tokens=max_tokens,
+                response_format={"type": "json_object"}
+            )
+        except BadRequestError as exc:
+            message = str(exc)
+            if "response_format" not in message:
+                raise
+            try:
+                response = self.chat(
+                    messages=messages,
+                    temperature=temperature,
+                    max_tokens=max_tokens,
+                    response_format=self._json_schema_format(json_schema, schema_name)
+                )
+            except BadRequestError:
+                response = self.chat(
+                    messages=messages,
+                    temperature=temperature,
+                    max_tokens=max_tokens
+                )
+
         # 清理markdown代码块标记
         cleaned_response = response.strip()
         cleaned_response = re.sub(r'^```(?:json)?\s*\n?', '', cleaned_response, flags=re.IGNORECASE)
@@ -99,5 +121,27 @@ class LLMClient:
         try:
             return json.loads(cleaned_response)
         except json.JSONDecodeError:
+            json_match = re.search(r'\{[\s\S]*\}', cleaned_response)
+            if json_match:
+                try:
+                    return json.loads(json_match.group(0))
+                except json.JSONDecodeError:
+                    pass
             raise ValueError(f"LLM返回的JSON格式无效: {cleaned_response}")
 
+    @staticmethod
+    def _json_schema_format(
+        json_schema: Optional[Dict[str, Any]],
+        schema_name: str
+    ) -> Dict[str, Any]:
+        return {
+            "type": "json_schema",
+            "json_schema": {
+                "name": schema_name,
+                "strict": False,
+                "schema": json_schema or {
+                    "type": "object",
+                    "additionalProperties": True
+                }
+            }
+        }
