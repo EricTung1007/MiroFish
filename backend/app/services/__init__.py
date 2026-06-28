@@ -1,5 +1,5 @@
 """
-业务服务模块
+業務服務模塊
 """
 
 from .ontology_generator import OntologyGenerator

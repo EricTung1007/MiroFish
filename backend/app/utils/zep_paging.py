@@ -1,7 +1,7 @@
-"""Zep Graph 分页读取工具。
+"""Zep Graph 分頁讀取工具。
 
-Zep 的 node/edge 列表接口使用 UUID cursor 分页，
-本模块封装自动翻页逻辑（含单页重试），对调用方透明地返回完整列表。
+Zep 的 node/edge 列表接口使用 UUID cursor 分頁，
+本模塊封裝自動翻頁邏輯（含單頁重試），對調用方透明地返回完整列表。
 """
 
 from __future__ import annotations
@@ -38,7 +38,7 @@ def _fetch_page_with_retry(
     page_description: str = "page",
     **kwargs: Any,
 ) -> list[Any]:
-    """单页请求，失败时指数退避重试。仅重试网络/IO类瞬态错误。"""
+    """單頁請求，失敗時指數退避重試。僅重試網絡/IO類瞬態錯誤。"""
     if max_retries < 1:
         raise ValueError("max_retries must be >= 1")
 
@@ -71,7 +71,7 @@ def fetch_all_nodes(
     max_retries: int = _DEFAULT_MAX_RETRIES,
     retry_delay: float = _DEFAULT_RETRY_DELAY,
 ) -> list[Any]:
-    """分页获取图谱节点，最多返回 max_items 条（默认 2000）。每页请求自带重试。"""
+    """分頁獲取圖譜節點，最多返回 max_items 條（默認 2000）。每頁請求自帶重試。"""
     all_nodes: list[Any] = []
     cursor: str | None = None
     page_num = 0
@@ -116,7 +116,7 @@ def fetch_all_edges(
     max_retries: int = _DEFAULT_MAX_RETRIES,
     retry_delay: float = _DEFAULT_RETRY_DELAY,
 ) -> list[Any]:
-    """分页获取图谱所有边，返回完整列表。每页请求自带重试。"""
+    """分頁獲取圖譜所有邊，返回完整列表。每頁請求自帶重試。"""
     all_edges: list[Any] = []
     cursor: str | None = None
     page_num = 0

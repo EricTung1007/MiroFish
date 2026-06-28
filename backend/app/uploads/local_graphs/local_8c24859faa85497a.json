@@ -1,0 +1,1159 @@
+{
+  "graph_id": "local_8c24859faa85497a",
+  "name": "sqlite verification",
+  "description": "MiroFish local graph",
+  "ontology": {
+    "entity_types": [
+      {
+        "name": "CasualPlayer",
+        "description": "Players who prioritize relaxation and low-stakes gameplay experience.",
+        "attributes": [
+          {
+            "name": "player_level",
+            "type": "text",
+            "description": "The current skill level or experience of thethought_process: The user wants a knowledge graph ontolo"
+          }
+        ],
+        "examples": [
+          "Casual Player A",
+          "Returning Casual User"
+        ]
+      },
+      {
+        "name": "HardcorePlayer",
+        "description": "Highly skilled players focused on high-risk, high-reward gameplay.",
+        "attributes": [
+          {
+            "name": "skill_rating",
+            "type": "text",
+            "description": "The competitive skill level of the player."
+          }
+        ],
+        "examples": [
+          "Pro Player X",
+          "Hardcore Enthusiast"
+        ]
+      },
+      {
+        "name": "LootPlayer",
+        "description": "Players primarily motivated by progression, rare items and looting mechanics.",
+        "attributes": [
+          {
+            "name": "play_style",
+            "type": "text",
+            "description": "The primary motivation for playing."
+          }
+        ],
+        "examples": [
+          "Collector Player",
+          "Loot Hunter"
+        ]
+      },
+      {
+        "name": "PvPplayer",
+        "description": "Players focused on competitive player-vs-player combat.",
+        "attributes": [
+          {
+            "name": "focus_area",
+            "type": "text",
+            "description": "The primary area of interest in combat."
+          }
+        ],
+        "examples": [
+          "Competitive Fighter",
+          "PvP Specialist"
+        ]
+      },
+      {
+        "name": "ContentCreator",
+        "description": "Influencers who create video content about the game.",
+        "attributes": [
+          {
+            "name": "platform_id",
+            "type": "text",
+            "description": "The social media platform where they are active."
+          }
+        ],
+        "examples": [
+          "YouTube Gamer",
+          "Twitch Streamer"
+        ]
+      },
+      {
+        "name": "GameDeveloper",
+        "description": "The team or studio responsible for creating and updating the game.",
+        "attributes": [
+          {
+            "name": "studio_role",
+            "type": "text",
+            "description": "The specific role within the development studio."
+          }
+        ],
+        "examples": [
+          "ARC Raiders Dev Team",
+          "Lead Designer"
+        ]
+      },
+      {
+        "name": "MediaOutlet",
+        "description": "News organizations or specialized gaming media reporting on the game.",
+        "attributes": [
+          {
+            "name": "media_type",
+            "type": "text",
+            "description": "The type of media (e.g., news, blog)."
+          }
+        ],
+        "examples": [
+          "IGN",
+          "GameSpot"
+        ]
+      },
+      {
+        "name": "SocialMediaPlatform",
+        "description": "The digital platforms where the community discusses the game.",
+        "attributes": [
+          {
+            "name": "platform_type",
+            "type": "text",
+            "description": "The type of digital platform (e.g., forum, video)."
+          }
+        ],
+        "examples": [
+          "Reddit",
+          "Discord",
+          "Twitter/X"
+        ]
+      },
+      {
+        "name": "Person",
+        "description": "Any individual person who is not covered by specific types above.",
+        "attributes": [
+          {
+            "name": "full_name",
+            "type": "text",
+            "description": "The name of the individual."
+          }
+        ],
+        "examples": [
+          "Random User",
+          "Anonymous Player"
+        ]
+      },
+      {
+        "name": "Organization",
+        "description": "Any organization or group that is not covered by specific types above.",
+        "attributes": [
+          {
+            "name": "org_name",
+            "type": "text",
+            "description": "The name of the organization."
+          }
+        ],
+        "examples": [
+          "Gaming Association",
+          "Community Group"
+        ]
+      }
+    ],
+    "edge_types": [
+      {
+        "name": "PLAYS",
+        "description": "A player engaging with the game content.",
+        "source_targets": [
+          {
+            "source": "CasualPlayer",
+            "target": "Organization"
+          }
+        ],
+        "attributes": []
+      },
+      {
+        "name": "CREATES_CONTENT",
+        "description": "A content creator producing media about the game.",
+        "source_targets": [
+          {
+            "source": "ContentCreator",
+            "target": "Organization"
+          }
+        ],
+        "attributes": []
+      },
+      {
+        "name": "REPORTS_ON",
+        "description": "A media outlet reporting on the game's update.",
+        "source_targets": [
+          {
+            "source": "MediaOutlet",
+            "target": "Organization"
+          }
+        ],
+        "attributes": []
+      },
+      {
+        "name": "DISCUSSES_ON",
+        "description": "A player or creator discussing the game on a platform.",
+        "source_targets": [
+          {
+            "source": "ContentCreator",
+            "target": "SocialMediaPlatform"
+          },
+          {
+            "source": "CasualPlayer",
+            "target": "SocialMediaPlatform"
+          },
+          {
+            "source": "HardcorePlayer",
+            "target": "SocialMediaPlatform"
+          }
+        ],
+        "attributes": []
+      },
+      {
+        "name": "SUPPORTS",
+        "description": "A player group supporting the update.",
+        "source_targets": [
+          {
+            "source": "CasualPlayer",
+            "target": "Organization"
+          }
+        ],
+        "attributes": []
+      },
+      {
+        "name": "OPPOSES",
+        "description": "A player group opposing the update.",
+        "source_targets": [
+          {
+            "source": "HardcorePlayer",
+            "target": "Organization"
+          }
+        ],
+        "attributes": []
+      },
+      {
+        "name": "REPRESENTS",
+        "description": "A player group representing a specific interest.",
+        "source_targets": [
+          {
+            "source": "LootPlayer",
+            "target": "Organization"
+          }
+        ],
+        "attributes": []
+      },
+      {
+        "name": "COMPETES_WITH",
+        "description": "A competitive relationship between players or groups.",
+        "source_targets": [
+          {
+            "source": "HardcorePlayer",
+            "target": "PvPplayer"
+          }
+        ],
+        "attributes": []
+      },
+      {
+        "name": "REACTION_TO",
+        "description": "A player or creator reacting to the update event.",
+        "source_targets": [
+          {
+            "source": "ContentCreator",
+            "target": "Organization"
+          }
+        ],
+        "attributes": []
+      }
+    ]
+  },
+  "nodes": [
+    {
+      "uuid": "node_1603489a2c944d19",
+      "name": "ARC Raiders",
+      "labels": [
+        "Entity",
+        "Organization"
+      ],
+      "summary": "Mentioned in source text: ARC Raiders.",
+      "attributes": {},
+      "evidence": [
+        {
+          "uuid": "ev_387afd3b0a54471a",
+          "chunk_id": "chunk_0001",
+          "source_file": "arc_raiders_update_seed.md",
+          "quote_or_span": "=== arc_raiders_update_seed.md === # ARC Raiders Update Community Reaction Seed ## Background ARC Raiders is a multiplayer extraction shooter. The game had a ",
+          "confidence": 0.65,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.535455+00:00"
+        },
+        {
+          "uuid": "ev_a3a62ddc596541a0",
+          "chunk_id": "chunk_0002",
+          "source_file": null,
+          "quote_or_span": "e active community is now split into several groups: 1. Casual players who enjoyed the game at launch but feel there is nothing new to do. 2. Hardcore players who still enjoy the core gunplay and extraction tension. 3. L",
+          "confidence": 0.65,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.535539+00:00"
+        },
+        {
+          "uuid": "ev_f83eef72039446ce",
+          "chunk_id": "chunk_0003",
+          "source_file": null,
+          "quote_or_span": "ents to make videos. ## Current Problems Many players describe the game as fun but stale. They do not necessarily hate the game, but they feel no urgency to return. The main complaints are: - The extraction loop is too s",
+          "confidence": 0.65,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.535664+00:00"
+        },
+        {
+          "uuid": "ev_7be0b0ab3e20451e",
+          "chunk_id": "chunk_0004",
+          "source_file": null,
+          "quote_or_span": "ready better and more optimized. - Content creators have less to discuss, which reduces the game’s visibility. ## Proposed Update The developer announces an update called “Containment Surge.” The update includes: 1. A li",
+          "confidence": 0.65,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.535731+00:00"
+        },
+        {
+          "uuid": "ev_c043bcade8104f1a",
+          "chunk_id": "chunk_0006",
+          "source_file": null,
+          "quote_or_span": "nd chaos. PvP players may complain if unstable extraction points or public objectives feel too random. Loot players may like the new crafting materials if rewards are meaningful. Content creators may make videos if the e",
+          "confidence": 0.65,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.535820+00:00"
+        }
+      ],
+      "created_at": "2026-06-28T09:40:33.535462+00:00"
+    },
+    {
+      "uuid": "node_554a268112974b49",
+      "name": "Game Developer",
+      "labels": [
+        "Entity",
+        "GameDeveloper"
+      ],
+      "summary": "Mentioned in source text: Game Developer.",
+      "attributes": {},
+      "evidence": [
+        {
+          "uuid": "ev_db41376d70114142",
+          "chunk_id": "chunk_0001",
+          "source_file": "arc_raiders_update_seed.md",
+          "quote_or_span": "=== arc_raiders_update_seed.md === # ARC Raiders Update Community Reaction Seed ## Background ARC Raiders is a multiplayer extraction shooter. The game had a strong initial player base, but many casual players have recen",
+          "confidence": 0.65,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.535475+00:00"
+        },
+        {
+          "uuid": "ev_6ab2fd200a674d98",
+          "chunk_id": "chunk_0002",
+          "source_file": null,
+          "quote_or_span": "e active community is now split into several groups: 1. Casual players who enjoyed the game at launch but feel there is nothing new to do. 2. Hardcore players who still enjoy the core gunplay and extraction tension. 3. L",
+          "confidence": 0.65,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.535553+00:00"
+        },
+        {
+          "uuid": "ev_19239ec92235429a",
+          "chunk_id": "chunk_0004",
+          "source_file": null,
+          "quote_or_span": "ready better and more optimized. - Content creators have less to discuss, which reduces the game’s visibility. ## Proposed Update The developer announces an update called “Containment Surge.” The update includes: 1. A li",
+          "confidence": 0.65,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.535739+00:00"
+        },
+        {
+          "uuid": "ev_fcfc8f2f56bc4b39",
+          "chunk_id": "chunk_0005",
+          "source_file": null,
+          "quote_or_span": "ed weapons can become unstable and break after several raids. 4. New public objectives appear mid-match, forcing teams to decide whether to cooperate, fight, or avoid the area. 5. A returning-player bonus gives inactive ",
+          "confidence": 0.65,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.535781+00:00"
+        },
+        {
+          "uuid": "ev_fa913d6839fe4861",
+          "chunk_id": "chunk_0006",
+          "source_file": null,
+          "quote_or_span": "nd chaos. PvP players may complain if unstable extraction points or public objectives feel too random. Loot players may like the new crafting materials if rewards are meaningful. Content creators may make videos if the e",
+          "confidence": 0.65,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.535825+00:00"
+        },
+        {
+          "uuid": "ev_9fd1871dcfd1479a",
+          "chunk_id": "chunk_0007",
+          "source_file": null,
+          "quote_or_span": "or annoying. If modified weapons break too often, players may reject the system. If rewards are too strong, players may call it unfair. If rewards are too weak, players may ignore the event. --- # Simulation Prompt Simul",
+          "confidence": 0.65,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.535878+00:00"
+        },
+        {
+          "uuid": "ev_1274802378844cd1",
+          "chunk_id": "chunk_0008",
+          "source_file": null,
+          "quote_or_span": "t the update. 4. What controversies appear on Reddit, Discord, YouTube, and Twitter/X. 5. Whether the update improves player retention after the initial curiosity spike. Generate a prediction report with: - Day-by-day se",
+          "confidence": 0.65,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.535978+00:00"
+        }
+      ],
+      "created_at": "2026-06-28T09:40:33.535479+00:00"
+    },
+    {
+      "uuid": "node_3a1b4b42f97e458c",
+      "name": "Casual Players",
+      "labels": [
+        "CasualPlayer",
+        "Entity"
+      ],
+      "summary": "Mentioned in source text: Casual Players.",
+      "attributes": {},
+      "evidence": [
+        {
+          "uuid": "ev_61ce8c2bbf474cc5",
+          "chunk_id": "chunk_0001",
+          "source_file": "arc_raiders_update_seed.md",
+          "quote_or_span": " extraction shooter. The game had a strong initial player base, but many casual players have recently stopped playing because the loop feels repetitive. A common complaint is that there is not enou",
+          "confidence": 0.65,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.535487+00:00"
+        },
+        {
+          "uuid": "ev_1b7cf4e3b5c1447e",
+          "chunk_id": "chunk_0002",
+          "source_file": null,
+          "quote_or_span": "e active community is now split into several groups: 1. Casual players who enjoyed the game at launch but feel there is nothing new to do. 2. Hardcore players who still enjoy the c",
+          "confidence": 0.65,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.535564+00:00"
+        },
+        {
+          "uuid": "ev_3148a46384804ae7",
+          "chunk_id": "chunk_0003",
+          "source_file": null,
+          "quote_or_span": "or social systems. - Loot does not create enough long-term motivation. - Casual players feel punished for returning late because active players are al",
+          "confidence": 0.65,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.535671+00:00"
+        },
+        {
+          "uuid": "ev_9c8fdd770bc54923",
+          "chunk_id": "chunk_0005",
+          "source_file": null,
+          "quote_or_span": "perimental and may be adjusted based on player feedback. ## Stakeholders Casual players may return if the update feels fresh and forgiving. Hardcore players may like the increased risk a",
+          "confidence": 0.65,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.535788+00:00"
+        },
+        {
+          "uuid": "ev_9c2f12b3959041a2",
+          "chunk_id": "chunk_0007",
+          "source_file": null,
+          "quote_or_span": "irst 14 days after announcement and release. Focus on: 1. Whether lapsed casual players are likely to return. 2. Whether the goop mechanic becomes meaningful again. 3. Which player groups support o",
+          "confidence": 0.65,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.535885+00:00"
+        }
+      ],
+      "created_at": "2026-06-28T09:40:33.535490+00:00"
+    },
+    {
+      "uuid": "node_8c24e6045dc64943",
+      "name": "Hardcore Players",
+      "labels": [
+        "Entity",
+        "HardcorePlayer"
+      ],
+      "summary": "Mentioned in source text: Hardcore Players.",
+      "attributes": {},
+      "evidence": [
+        {
+          "uuid": "ev_e4cb0c62896745fc",
+          "chunk_id": "chunk_0002",
+          "source_file": null,
+          "quote_or_span": "s who enjoyed the game at launch but feel there is nothing new to do. 2. Hardcore players who still enjoy the core gunplay and extraction tension. 3. Loot-focused players who want stronger progressio",
+          "confidence": 0.65,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.535571+00:00"
+        },
+        {
+          "uuid": "ev_aae802cec72b4001",
+          "chunk_id": "chunk_0005",
+          "source_file": null,
+          "quote_or_span": "lders Casual players may return if the update feels fresh and forgiving. Hardcore players may like the increased risk a",
+          "confidence": 0.65,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.535793+00:00"
+        }
+      ],
+      "created_at": "2026-06-28T09:40:33.535575+00:00"
+    },
+    {
+      "uuid": "node_6ee3d61a94c94dec",
+      "name": "Loot Players",
+      "labels": [
+        "Entity",
+        "LootPlayer"
+      ],
+      "summary": "Mentioned in source text: Loot Players.",
+      "attributes": {},
+      "evidence": [
+        {
+          "uuid": "ev_9f627dadc9484358",
+          "chunk_id": "chunk_0002",
+          "source_file": null,
+          "quote_or_span": "e active community is now split into several groups: 1. Casual players who enjoyed the game at launch but feel there is nothing new to do. 2. Hardcore players who still enjoy the core gunplay and extraction tension. 3. L",
+          "confidence": 0.65,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.535580+00:00"
+        },
+        {
+          "uuid": "ev_91093cd21a504aaa",
+          "chunk_id": "chunk_0003",
+          "source_file": null,
+          "quote_or_span": "ents to make videos. ## Current Problems Many players describe the game as fun but stale. They do not necessarily hate the game, but they feel no urgency to return. The main complaints are: - The extraction loop is too s",
+          "confidence": 0.65,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.535677+00:00"
+        },
+        {
+          "uuid": "ev_c21965ec065c4ae6",
+          "chunk_id": "chunk_0006",
+          "source_file": null,
+          "quote_or_span": "lain if unstable extraction points or public objectives feel too random. Loot players may like the new crafting materials if rewards are meaningful. Content creators may make videos if the event ",
+          "confidence": 0.65,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.535830+00:00"
+        }
+      ],
+      "created_at": "2026-06-28T09:40:33.535583+00:00"
+    },
+    {
+      "uuid": "node_2fbd07ddce4e400f",
+      "name": "PvP Players",
+      "labels": [
+        "Entity",
+        "PvPplayer"
+      ],
+      "summary": "Mentioned in source text: PvP Players.",
+      "attributes": {},
+      "evidence": [
+        {
+          "uuid": "ev_05c2cfd301bd40d1",
+          "chunk_id": "chunk_0002",
+          "source_file": null,
+          "quote_or_span": "e active community is now split into several groups: 1. Casual players who enjoyed the game at launch but feel there is nothing new to do. 2. Hardcore players who still enjoy the core gunplay and extraction tension. 3. L",
+          "confidence": 0.65,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.535588+00:00"
+        },
+        {
+          "uuid": "ev_f63d79c4cfd244ea",
+          "chunk_id": "chunk_0006",
+          "source_file": null,
+          "quote_or_span": "nd chaos. PvP players may complain if unstable extraction points or public objectives feel too random. Loot players may like the ne",
+          "confidence": 0.65,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.535835+00:00"
+        }
+      ],
+      "created_at": "2026-06-28T09:40:33.535591+00:00"
+    },
+    {
+      "uuid": "node_376b9c9f9daa4505",
+      "name": "Content Creators",
+      "labels": [
+        "ContentCreator",
+        "Entity"
+      ],
+      "summary": "Mentioned in source text: Content Creators.",
+      "attributes": {},
+      "evidence": [
+        {
+          "uuid": "ev_29b71e4305b349a4",
+          "chunk_id": "chunk_0002",
+          "source_file": null,
+          "quote_or_span": "hat adding too many PvE systems will weaken the competitive identity. 5. Content creators who need new updates, drama, balance changes, or big ev",
+          "confidence": 0.65,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.535596+00:00"
+        },
+        {
+          "uuid": "ev_626d7b3e53cf4b6f",
+          "chunk_id": "chunk_0003",
+          "source_file": null,
+          "quote_or_span": "ents to make videos. ## Current Problems Many players describe the game as fun but stale. They do not necessarily hate the game, but they feel no urgency to return. The main complaints are: - The extraction loop is too s",
+          "confidence": 0.65,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.535682+00:00"
+        },
+        {
+          "uuid": "ev_4ad482983d9e4776",
+          "chunk_id": "chunk_0004",
+          "source_file": null,
+          "quote_or_span": "ready better and more optimized. - Content creators have less to discuss, which reduces the game’s visibility. ## Proposed Update The developer announces an upda",
+          "confidence": 0.65,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.535746+00:00"
+        },
+        {
+          "uuid": "ev_d3b0845d4d054c06",
+          "chunk_id": "chunk_0006",
+          "source_file": null,
+          "quote_or_span": "t players may like the new crafting materials if rewards are meaningful. Content creators may make videos if the event creates visible drama and unusual match outcomes. ## Uncertainty The main uncert",
+          "confidence": 0.65,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.535840+00:00"
+        },
+        {
+          "uuid": "ev_327ddbfec9e14ce3",
+          "chunk_id": "chunk_0008",
+          "source_file": null,
+          "quote_or_span": "t the update. 4. What controversies appear on Reddit, Discord, YouTube, and Twitter/X. 5. Whether the update improves player retention after the initial curiosity spike. Generate a prediction report with: - Day-by-day se",
+          "confidence": 0.65,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.535986+00:00"
+        }
+      ],
+      "created_at": "2026-06-28T09:40:33.535599+00:00"
+    },
+    {
+      "uuid": "node_b657713ba09a4b4b",
+      "name": "Reddit",
+      "labels": [
+        "Entity",
+        "SocialMediaPlatform"
+      ],
+      "summary": "Mentioned in source text: Reddit.",
+      "attributes": {},
+      "evidence": [
+        {
+          "uuid": "ev_b2d45a1e50034f06",
+          "chunk_id": "chunk_0008",
+          "source_file": null,
+          "quote_or_span": "t the update. 4. What controversies appear on Reddit, Discord, YouTube, and Twitter/X. 5. Whether the update improves player retention after the initial curiosity",
+          "confidence": 0.65,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.535992+00:00"
+        }
+      ],
+      "created_at": "2026-06-28T09:40:33.535995+00:00"
+    },
+    {
+      "uuid": "node_35cb7655b26c477c",
+      "name": "Discord",
+      "labels": [
+        "Entity",
+        "SocialMediaPlatform"
+      ],
+      "summary": "Mentioned in source text: Discord.",
+      "attributes": {},
+      "evidence": [
+        {
+          "uuid": "ev_e80ed938a80340fb",
+          "chunk_id": "chunk_0008",
+          "source_file": null,
+          "quote_or_span": "t the update. 4. What controversies appear on Reddit, Discord, YouTube, and Twitter/X. 5. Whether the update improves player retention after the initial curiosity spike. G",
+          "confidence": 0.65,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.536000+00:00"
+        }
+      ],
+      "created_at": "2026-06-28T09:40:33.536003+00:00"
+    },
+    {
+      "uuid": "node_415b52d1ece74c3d",
+      "name": "YouTube",
+      "labels": [
+        "Entity",
+        "SocialMediaPlatform"
+      ],
+      "summary": "Mentioned in source text: YouTube.",
+      "attributes": {},
+      "evidence": [
+        {
+          "uuid": "ev_0af9aa64621141d6",
+          "chunk_id": "chunk_0008",
+          "source_file": null,
+          "quote_or_span": "t the update. 4. What controversies appear on Reddit, Discord, YouTube, and Twitter/X. 5. Whether the update improves player retention after the initial curiosity spike. Generate a",
+          "confidence": 0.65,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.536009+00:00"
+        }
+      ],
+      "created_at": "2026-06-28T09:40:33.536012+00:00"
+    },
+    {
+      "uuid": "node_0b1ded69794f4a08",
+      "name": "Twitter/X",
+      "labels": [
+        "Entity",
+        "SocialMediaPlatform"
+      ],
+      "summary": "Mentioned in source text: Twitter/X.",
+      "attributes": {},
+      "evidence": [
+        {
+          "uuid": "ev_89e44db5aa8744a9",
+          "chunk_id": "chunk_0008",
+          "source_file": null,
+          "quote_or_span": "he update. 4. What controversies appear on Reddit, Discord, YouTube, and Twitter/X. 5. Whether the update improves player retention after the initial curiosity spike. Generate a prediction rep",
+          "confidence": 0.65,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.536017+00:00"
+        }
+      ],
+      "created_at": "2026-06-28T09:40:33.536020+00:00"
+    }
+  ],
+  "edges": [
+    {
+      "uuid": "edge_3d965e0cc5b14c6f",
+      "name": "REACTION_TO",
+      "fact": "ARC Raiders is relevant to the community reaction around Game Developer.",
+      "fact_type": "REACTION_TO",
+      "source_node_uuid": "node_1603489a2c944d19",
+      "target_node_uuid": "node_554a268112974b49",
+      "source_node_name": "ARC Raiders",
+      "target_node_name": "Game Developer",
+      "attributes": {},
+      "evidence": [
+        {
+          "uuid": "ev_1654bf43c12142cf",
+          "chunk_id": "chunk_0001",
+          "source_file": "arc_raiders_update_seed.md",
+          "quote_or_span": "=== arc_raiders_update_seed.md === # ARC Raiders Update Community Reaction Seed ## Background ARC Raiders is a multiplayer extraction shooter. The game had a strong initial player base, but many casual players have recen",
+          "confidence": 0.55,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.535498+00:00"
+        }
+      ],
+      "created_at": "2026-06-28T09:40:33.535502+00:00",
+      "valid_at": null,
+      "invalid_at": null,
+      "expired_at": null,
+      "episodes": [
+        "chunk_0001"
+      ]
+    },
+    {
+      "uuid": "edge_a84326c565a04745",
+      "name": "REACTION_TO",
+      "fact": "Casual Players is relevant to the community reaction around Game Developer.",
+      "fact_type": "REACTION_TO",
+      "source_node_uuid": "node_3a1b4b42f97e458c",
+      "target_node_uuid": "node_554a268112974b49",
+      "source_node_name": "Casual Players",
+      "target_node_name": "Game Developer",
+      "attributes": {},
+      "evidence": [
+        {
+          "uuid": "ev_020fe1f2c5e94d68",
+          "chunk_id": "chunk_0001",
+          "source_file": "arc_raiders_update_seed.md",
+          "quote_or_span": "=== arc_raiders_update_seed.md === # ARC Raiders Update Community Reaction Seed ## Background ARC Raiders is a multiplayer extraction shooter. The game had a strong initial player base, but many casual players have recen",
+          "confidence": 0.55,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.535509+00:00"
+        }
+      ],
+      "created_at": "2026-06-28T09:40:33.535512+00:00",
+      "valid_at": null,
+      "invalid_at": null,
+      "expired_at": null,
+      "episodes": [
+        "chunk_0001"
+      ]
+    },
+    {
+      "uuid": "edge_446436c0cc0a434d",
+      "name": "REACTION_TO",
+      "fact": "Hardcore Players is relevant to the community reaction around Game Developer.",
+      "fact_type": "REACTION_TO",
+      "source_node_uuid": "node_8c24e6045dc64943",
+      "target_node_uuid": "node_554a268112974b49",
+      "source_node_name": "Hardcore Players",
+      "target_node_name": "Game Developer",
+      "attributes": {},
+      "evidence": [
+        {
+          "uuid": "ev_ad4b66c7ec7640d1",
+          "chunk_id": "chunk_0002",
+          "source_file": null,
+          "quote_or_span": "e active community is now split into several groups: 1. Casual players who enjoyed the game at launch but feel there is nothing new to do. 2. Hardcore players who still enjoy the core gunplay and extraction tension. 3. L",
+          "confidence": 0.55,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.535615+00:00"
+        }
+      ],
+      "created_at": "2026-06-28T09:40:33.535619+00:00",
+      "valid_at": null,
+      "invalid_at": null,
+      "expired_at": null,
+      "episodes": [
+        "chunk_0002"
+      ]
+    },
+    {
+      "uuid": "edge_635a9b11d4fa434b",
+      "name": "REACTION_TO",
+      "fact": "Loot Players is relevant to the community reaction around Game Developer.",
+      "fact_type": "REACTION_TO",
+      "source_node_uuid": "node_6ee3d61a94c94dec",
+      "target_node_uuid": "node_554a268112974b49",
+      "source_node_name": "Loot Players",
+      "target_node_name": "Game Developer",
+      "attributes": {},
+      "evidence": [
+        {
+          "uuid": "ev_9e9f0103f1c348b2",
+          "chunk_id": "chunk_0002",
+          "source_file": null,
+          "quote_or_span": "e active community is now split into several groups: 1. Casual players who enjoyed the game at launch but feel there is nothing new to do. 2. Hardcore players who still enjoy the core gunplay and extraction tension. 3. L",
+          "confidence": 0.55,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.535624+00:00"
+        }
+      ],
+      "created_at": "2026-06-28T09:40:33.535626+00:00",
+      "valid_at": null,
+      "invalid_at": null,
+      "expired_at": null,
+      "episodes": [
+        "chunk_0002"
+      ]
+    },
+    {
+      "uuid": "edge_3f78bd1950d44fbb",
+      "name": "REACTION_TO",
+      "fact": "PvP Players is relevant to the community reaction around Game Developer.",
+      "fact_type": "REACTION_TO",
+      "source_node_uuid": "node_2fbd07ddce4e400f",
+      "target_node_uuid": "node_554a268112974b49",
+      "source_node_name": "PvP Players",
+      "target_node_name": "Game Developer",
+      "attributes": {},
+      "evidence": [
+        {
+          "uuid": "ev_42229ca0742d461e",
+          "chunk_id": "chunk_0002",
+          "source_file": null,
+          "quote_or_span": "e active community is now split into several groups: 1. Casual players who enjoyed the game at launch but feel there is nothing new to do. 2. Hardcore players who still enjoy the core gunplay and extraction tension. 3. L",
+          "confidence": 0.55,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.535631+00:00"
+        }
+      ],
+      "created_at": "2026-06-28T09:40:33.535634+00:00",
+      "valid_at": null,
+      "invalid_at": null,
+      "expired_at": null,
+      "episodes": [
+        "chunk_0002"
+      ]
+    },
+    {
+      "uuid": "edge_0abdd132571b4de3",
+      "name": "REACTION_TO",
+      "fact": "Content Creators is relevant to the community reaction around Game Developer.",
+      "fact_type": "REACTION_TO",
+      "source_node_uuid": "node_376b9c9f9daa4505",
+      "target_node_uuid": "node_554a268112974b49",
+      "source_node_name": "Content Creators",
+      "target_node_name": "Game Developer",
+      "attributes": {},
+      "evidence": [
+        {
+          "uuid": "ev_6dc84ff91472411e",
+          "chunk_id": "chunk_0002",
+          "source_file": null,
+          "quote_or_span": "e active community is now split into several groups: 1. Casual players who enjoyed the game at launch but feel there is nothing new to do. 2. Hardcore players who still enjoy the core gunplay and extraction tension. 3. L",
+          "confidence": 0.55,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.535639+00:00"
+        }
+      ],
+      "created_at": "2026-06-28T09:40:33.535641+00:00",
+      "valid_at": null,
+      "invalid_at": null,
+      "expired_at": null,
+      "episodes": [
+        "chunk_0002"
+      ]
+    },
+    {
+      "uuid": "edge_78944a6d01004186",
+      "name": "REACTION_TO",
+      "fact": "Casual Players is relevant to the community reaction around ARC Raiders.",
+      "fact_type": "REACTION_TO",
+      "source_node_uuid": "node_3a1b4b42f97e458c",
+      "target_node_uuid": "node_1603489a2c944d19",
+      "source_node_name": "Casual Players",
+      "target_node_name": "ARC Raiders",
+      "attributes": {},
+      "evidence": [
+        {
+          "uuid": "ev_42189d2b11bb4fbd",
+          "chunk_id": "chunk_0003",
+          "source_file": null,
+          "quote_or_span": "ents to make videos. ## Current Problems Many players describe the game as fun but stale. They do not necessarily hate the game, but they feel no urgency to return. The main complaints are: - The extraction loop is too s",
+          "confidence": 0.55,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.535688+00:00"
+        }
+      ],
+      "created_at": "2026-06-28T09:40:33.535691+00:00",
+      "valid_at": null,
+      "invalid_at": null,
+      "expired_at": null,
+      "episodes": [
+        "chunk_0003"
+      ]
+    },
+    {
+      "uuid": "edge_f8e0de755cf74995",
+      "name": "REACTION_TO",
+      "fact": "Loot Players is relevant to the community reaction around ARC Raiders.",
+      "fact_type": "REACTION_TO",
+      "source_node_uuid": "node_6ee3d61a94c94dec",
+      "target_node_uuid": "node_1603489a2c944d19",
+      "source_node_name": "Loot Players",
+      "target_node_name": "ARC Raiders",
+      "attributes": {},
+      "evidence": [
+        {
+          "uuid": "ev_f140df06ca0b4a80",
+          "chunk_id": "chunk_0003",
+          "source_file": null,
+          "quote_or_span": "ents to make videos. ## Current Problems Many players describe the game as fun but stale. They do not necessarily hate the game, but they feel no urgency to return. The main complaints are: - The extraction loop is too s",
+          "confidence": 0.55,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.535697+00:00"
+        }
+      ],
+      "created_at": "2026-06-28T09:40:33.535700+00:00",
+      "valid_at": null,
+      "invalid_at": null,
+      "expired_at": null,
+      "episodes": [
+        "chunk_0003"
+      ]
+    },
+    {
+      "uuid": "edge_f3ec1e9191f740a4",
+      "name": "REACTION_TO",
+      "fact": "Content Creators is relevant to the community reaction around ARC Raiders.",
+      "fact_type": "REACTION_TO",
+      "source_node_uuid": "node_376b9c9f9daa4505",
+      "target_node_uuid": "node_1603489a2c944d19",
+      "source_node_name": "Content Creators",
+      "target_node_name": "ARC Raiders",
+      "attributes": {},
+      "evidence": [
+        {
+          "uuid": "ev_1eeaa053ffa44173",
+          "chunk_id": "chunk_0003",
+          "source_file": null,
+          "quote_or_span": "ents to make videos. ## Current Problems Many players describe the game as fun but stale. They do not necessarily hate the game, but they feel no urgency to return. The main complaints are: - The extraction loop is too s",
+          "confidence": 0.55,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.535706+00:00"
+        }
+      ],
+      "created_at": "2026-06-28T09:40:33.535708+00:00",
+      "valid_at": null,
+      "invalid_at": null,
+      "expired_at": null,
+      "episodes": [
+        "chunk_0003"
+      ]
+    },
+    {
+      "uuid": "edge_d8ba4edce6e745af",
+      "name": "DISCUSSES_ON",
+      "fact": "Reddit is relevant to the community reaction around Game Developer.",
+      "fact_type": "DISCUSSES_ON",
+      "source_node_uuid": "node_b657713ba09a4b4b",
+      "target_node_uuid": "node_554a268112974b49",
+      "source_node_name": "Reddit",
+      "target_node_name": "Game Developer",
+      "attributes": {},
+      "evidence": [
+        {
+          "uuid": "ev_909f3ed5a1a145ce",
+          "chunk_id": "chunk_0008",
+          "source_file": null,
+          "quote_or_span": "t the update. 4. What controversies appear on Reddit, Discord, YouTube, and Twitter/X. 5. Whether the update improves player retention after the initial curiosity spike. Generate a prediction report with: - Day-by-day se",
+          "confidence": 0.55,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.536029+00:00"
+        }
+      ],
+      "created_at": "2026-06-28T09:40:33.536032+00:00",
+      "valid_at": null,
+      "invalid_at": null,
+      "expired_at": null,
+      "episodes": [
+        "chunk_0008"
+      ]
+    },
+    {
+      "uuid": "edge_ea64e83282d049ec",
+      "name": "DISCUSSES_ON",
+      "fact": "Discord is relevant to the community reaction around Game Developer.",
+      "fact_type": "DISCUSSES_ON",
+      "source_node_uuid": "node_35cb7655b26c477c",
+      "target_node_uuid": "node_554a268112974b49",
+      "source_node_name": "Discord",
+      "target_node_name": "Game Developer",
+      "attributes": {},
+      "evidence": [
+        {
+          "uuid": "ev_c7673004f71c45ef",
+          "chunk_id": "chunk_0008",
+          "source_file": null,
+          "quote_or_span": "t the update. 4. What controversies appear on Reddit, Discord, YouTube, and Twitter/X. 5. Whether the update improves player retention after the initial curiosity spike. Generate a prediction report with: - Day-by-day se",
+          "confidence": 0.55,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.536037+00:00"
+        }
+      ],
+      "created_at": "2026-06-28T09:40:33.536040+00:00",
+      "valid_at": null,
+      "invalid_at": null,
+      "expired_at": null,
+      "episodes": [
+        "chunk_0008"
+      ]
+    },
+    {
+      "uuid": "edge_e38eefa923f54cb3",
+      "name": "DISCUSSES_ON",
+      "fact": "YouTube is relevant to the community reaction around Game Developer.",
+      "fact_type": "DISCUSSES_ON",
+      "source_node_uuid": "node_415b52d1ece74c3d",
+      "target_node_uuid": "node_554a268112974b49",
+      "source_node_name": "YouTube",
+      "target_node_name": "Game Developer",
+      "attributes": {},
+      "evidence": [
+        {
+          "uuid": "ev_4e92756a7e864acf",
+          "chunk_id": "chunk_0008",
+          "source_file": null,
+          "quote_or_span": "t the update. 4. What controversies appear on Reddit, Discord, YouTube, and Twitter/X. 5. Whether the update improves player retention after the initial curiosity spike. Generate a prediction report with: - Day-by-day se",
+          "confidence": 0.55,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.536044+00:00"
+        }
+      ],
+      "created_at": "2026-06-28T09:40:33.536047+00:00",
+      "valid_at": null,
+      "invalid_at": null,
+      "expired_at": null,
+      "episodes": [
+        "chunk_0008"
+      ]
+    },
+    {
+      "uuid": "edge_550e8db12fdb4b81",
+      "name": "DISCUSSES_ON",
+      "fact": "Twitter/X is relevant to the community reaction around Game Developer.",
+      "fact_type": "DISCUSSES_ON",
+      "source_node_uuid": "node_0b1ded69794f4a08",
+      "target_node_uuid": "node_554a268112974b49",
+      "source_node_name": "Twitter/X",
+      "target_node_name": "Game Developer",
+      "attributes": {},
+      "evidence": [
+        {
+          "uuid": "ev_943ad79bbc0643df",
+          "chunk_id": "chunk_0008",
+          "source_file": null,
+          "quote_or_span": "t the update. 4. What controversies appear on Reddit, Discord, YouTube, and Twitter/X. 5. Whether the update improves player retention after the initial curiosity spike. Generate a prediction report with: - Day-by-day se",
+          "confidence": 0.55,
+          "extraction_method": "deterministic",
+          "created_at": "2026-06-28T09:40:33.536051+00:00"
+        }
+      ],
+      "created_at": "2026-06-28T09:40:33.536053+00:00",
+      "valid_at": null,
+      "invalid_at": null,
+      "expired_at": null,
+      "episodes": [
+        "chunk_0008"
+      ]
+    }
+  ],
+  "episodes": [
+    {
+      "uuid": "chunk_0001",
+      "chunk_index": 1,
+      "source_file": "arc_raiders_update_seed.md",
+      "data": "\n\n=== arc_raiders_update_seed.md ===\n# ARC Raiders Update Community Reaction Seed\n\n## Background\n\nARC Raiders is a multiplayer extraction shooter. The game had a strong initial player base, but many casual players have recently stopped playing because the loop feels repetitive. A common complaint is that there is not enough meaningful new content. Players say that the “goop” mechanic, which used to feel important and exciting, now feels pointless because it no longer changes how people play.\n\nTh",
+      "processed": true,
+      "created_at": "2026-06-28T09:40:33.535190+00:00"
+    },
+    {
+      "uuid": "chunk_0002",
+      "chunk_index": 2,
+      "source_file": null,
+      "data": "e active community is now split into several groups:\n\n1. Casual players who enjoyed the game at launch but feel there is nothing new to do.\n2. Hardcore players who still enjoy the core gunplay and extraction tension.\n3. Loot-focused players who want stronger progression, more rare items, and more reasons to take risks.\n4. PvP-focused players who worry that adding too many PvE systems will weaken the competitive identity.\n5. Content creators who need new updates, drama, balance changes, or big ev",
+      "processed": true,
+      "created_at": "2026-06-28T09:40:33.535516+00:00"
+    },
+    {
+      "uuid": "chunk_0003",
+      "chunk_index": 3,
+      "source_file": null,
+      "data": "ents to make videos.\n\n## Current Problems\n\nMany players describe the game as fun but stale. They do not necessarily hate the game, but they feel no urgency to return. The main complaints are:\n\n- The extraction loop is too similar after many matches.\n- The goop system no longer feels meaningful.\n- There are not enough new maps, enemies, objectives, or social systems.\n- Loot does not create enough long-term motivation.\n- Casual players feel punished for returning late because active players are al",
+      "processed": true,
+      "created_at": "2026-06-28T09:40:33.535644+00:00"
+    },
+    {
+      "uuid": "chunk_0004",
+      "chunk_index": 4,
+      "source_file": null,
+      "data": "ready better and more optimized.\n- Content creators have less to discuss, which reduces the game’s visibility.\n\n## Proposed Update\n\nThe developer announces an update called “Containment Surge.”\n\nThe update includes:\n\n1. A limited-time world event where goop contamination spreads across the map over two weeks.\n2. Goop-contaminated zones contain stronger enemies, rare crafting materials, and unstable extraction points.\n3. Players can now use goop to modify weapons with temporary traits, but modifi",
+      "processed": true,
+      "created_at": "2026-06-28T09:40:33.535710+00:00"
+    },
+    {
+      "uuid": "chunk_0005",
+      "chunk_index": 5,
+      "source_file": null,
+      "data": "ed weapons can become unstable and break after several raids.\n4. New public objectives appear mid-match, forcing teams to decide whether to cooperate, fight, or avoid the area.\n5. A returning-player bonus gives inactive players three protected runs with reduced gear loss.\n6. The developer says this update is experimental and may be adjusted based on player feedback.\n\n## Stakeholders\n\nCasual players may return if the update feels fresh and forgiving. Hardcore players may like the increased risk a",
+      "processed": true,
+      "created_at": "2026-06-28T09:40:33.535761+00:00"
+    },
+    {
+      "uuid": "chunk_0006",
+      "chunk_index": 6,
+      "source_file": null,
+      "data": "nd chaos. PvP players may complain if unstable extraction points or public objectives feel too random. Loot players may like the new crafting materials if rewards are meaningful. Content creators may make videos if the event creates visible drama and unusual match outcomes.\n\n## Uncertainty\n\nThe main uncertainty is whether players will see this update as a real evolution of the game or just a temporary gimmick. Another uncertainty is whether the goop weapon modification system will feel exciting ",
+      "processed": true,
+      "created_at": "2026-06-28T09:40:33.535805+00:00"
+    },
+    {
+      "uuid": "chunk_0007",
+      "chunk_index": 7,
+      "source_file": null,
+      "data": "or annoying. If modified weapons break too often, players may reject the system. If rewards are too strong, players may call it unfair. If rewards are too weak, players may ignore the event.\n\n---\n\n# Simulation Prompt\n\nSimulate the community reaction to the “Containment Surge” update over the first 14 days after announcement and release.\n\nFocus on:\n\n1. Whether lapsed casual players are likely to return.\n2. Whether the goop mechanic becomes meaningful again.\n3. Which player groups support or rejec",
+      "processed": true,
+      "created_at": "2026-06-28T09:40:33.535860+00:00"
+    },
+    {
+      "uuid": "chunk_0008",
+      "chunk_index": 8,
+      "source_file": null,
+      "data": "t the update.\n4. What controversies appear on Reddit, Discord, YouTube, and Twitter/X.\n5. Whether the update improves player retention after the initial curiosity spike.\n\nGenerate a prediction report with:\n\n- Day-by-day sentiment trend\n- Major supporter groups\n- Major critic groups\n- Likely failure points\n- Recommended developer actions\n- Confidence level and reasons",
+      "processed": true,
+      "created_at": "2026-06-28T09:40:33.535950+00:00"
+    }
+  ],
+  "activities": [],
+  "created_at": "2026-06-28T09:40:33.484749+00:00",
+  "updated_at": "2026-06-28T09:40:33.536058+00:00"
+}

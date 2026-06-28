@@ -4,7 +4,7 @@
 
 <a href="https://trendshift.io/repositories/16144" target="_blank"><img src="https://trendshift.io/api/badge/repositories/16144" alt="666ghj%2FMiroFish | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 
-简洁通用的群体智能引擎，预测万物
+簡潔通用的群體智能引擎，預測萬物
 </br>
 <em>A Simple and Universal Swarm Intelligence Engine, Predicting Anything</em>
 
@@ -20,161 +20,161 @@
 [![X](https://img.shields.io/badge/X-Follow-000000?style=flat-square&logo=x&logoColor=white)](https://x.com/mirofish_ai)
 [![Instagram](https://img.shields.io/badge/Instagram-Follow-E4405F?style=flat-square&logo=instagram&logoColor=white)](https://www.instagram.com/mirofish_ai/)
 
-[English](./README.md) | [中文文档](./README-ZH.md)
+[English](./README.md) | [中文文檔](./README-ZH.md)
 
 </div>
 
-## ⚡ 项目概述
+## ⚡ 項目概述
 
-**MiroFish** 是一款基于多智能体技术的新一代 AI 预测引擎。通过提取现实世界的种子信息（如突发新闻、政策草案、金融信号），自动构建出高保真的平行数字世界。在此空间内，成千上万个具备独立人格、长期记忆与行为逻辑的智能体进行自由交互与社会演化。你可透过「上帝视角」动态注入变量，精准推演未来走向——**让未来在数字沙盘中预演，助决策在百战模拟后胜出**。
+**MiroFish** 是一款基於多智能體技術的新一代 AI 預測引擎。通過提取現實世界的種子信息（如突發新聞、政策草案、金融信號），自動構建出高保真的平行數字世界。在此空間內，成千上萬個具備獨立人格、長期記憶與行為邏輯的智能體進行自由交互與社會演化。你可透過「上帝視角」動態注入變量，精準推演未來走向——**讓未來在數字沙盤中預演，助決策在百戰模擬後勝出**。
 
-> 你只需：上传种子材料（数据分析报告或者有趣的小说故事），并用自然语言描述预测需求</br>
-> MiroFish 将返回：一份详尽的预测报告，以及一个可深度交互的高保真数字世界
+> 你只需：上傳種子材料（數據分析報告或者有趣的小說故事），並用自然語言描述預測需求</br>
+> MiroFish 將返回：一份詳盡的預測報告，以及一個可深度交互的高保真數字世界
 
-### 我们的愿景
+### 我們的願景
 
-MiroFish 致力于打造映射现实的群体智能镜像，通过捕捉个体互动引发的群体涌现，突破传统预测的局限：
+MiroFish 致力於打造映射現實的群體智能鏡像，通過捕捉個體互動引發的群體湧現，突破傳統預測的侷限：
 
-- **于宏观**：我们是决策者的预演实验室，让政策与公关在零风险中试错
-- **于微观**：我们是个人用户的创意沙盘，无论是推演小说结局还是探索脑洞，皆可有趣、好玩、触手可及
+- **於宏觀**：我們是決策者的預演實驗室，讓政策與公關在零風險中試錯
+- **於微觀**：我們是個人用戶的創意沙盤，無論是推演小說結局還是探索腦洞，皆可有趣、好玩、觸手可及
 
-从严肃预测到趣味仿真，我们让每一个如果都能看见结果，让预测万物成为可能。
+從嚴肅預測到趣味仿真，我們讓每一個如果都能看見結果，讓預測萬物成為可能。
 
-## 🌐 在线体验
+## 🌐 在線體驗
 
-欢迎访问在线 Demo 演示环境，体验我们为你准备的一次关于热点舆情事件的推演预测：[mirofish-live-demo](https://666ghj.github.io/mirofish-demo/)
+歡迎訪問在線 Demo 演示環境，體驗我們為你準備的一次關於熱點輿情事件的推演預測：[mirofish-live-demo](https://666ghj.github.io/mirofish-demo/)
 
-## 📸 系统截图
+## 📸 系統截圖
 
 <div align="center">
 <table>
 <tr>
-<td><img src="./static/image/Screenshot/运行截图1.png" alt="截图1" width="100%"/></td>
-<td><img src="./static/image/Screenshot/运行截图2.png" alt="截图2" width="100%"/></td>
+<td><img src="./static/image/Screenshot/运行截图1.png" alt="截圖1" width="100%"/></td>
+<td><img src="./static/image/Screenshot/运行截图2.png" alt="截圖2" width="100%"/></td>
 </tr>
 <tr>
-<td><img src="./static/image/Screenshot/运行截图3.png" alt="截图3" width="100%"/></td>
-<td><img src="./static/image/Screenshot/运行截图4.png" alt="截图4" width="100%"/></td>
+<td><img src="./static/image/Screenshot/运行截图3.png" alt="截圖3" width="100%"/></td>
+<td><img src="./static/image/Screenshot/运行截图4.png" alt="截圖4" width="100%"/></td>
 </tr>
 <tr>
-<td><img src="./static/image/Screenshot/运行截图5.png" alt="截图5" width="100%"/></td>
-<td><img src="./static/image/Screenshot/运行截图6.png" alt="截图6" width="100%"/></td>
+<td><img src="./static/image/Screenshot/运行截图5.png" alt="截圖5" width="100%"/></td>
+<td><img src="./static/image/Screenshot/运行截图6.png" alt="截圖6" width="100%"/></td>
 </tr>
 </table>
 </div>
 
-## 🎬 演示视频
+## 🎬 演示視頻
 
-### 1. 武汉大学舆情推演预测 + MiroFish项目讲解
+### 1. 武漢大學輿情推演預測 + MiroFish項目講解
 
 <div align="center">
 <a href="https://www.bilibili.com/video/BV1VYBsBHEMY/" target="_blank"><img src="./static/image/武大模拟演示封面.png" alt="MiroFish Demo Video" width="75%"/></a>
 
-点击图片查看使用微舆BettaFish生成的《武大舆情报告》进行预测的完整演示视频
+點擊圖片查看使用微輿BettaFish生成的《武大輿情報告》進行預測的完整演示視頻
 </div>
 
-### 2. 《红楼梦》失传结局推演预测
+### 2. 《紅樓夢》失傳結局推演預測
 
 <div align="center">
 <a href="https://www.bilibili.com/video/BV1cPk3BBExq" target="_blank"><img src="./static/image/红楼梦模拟推演封面.jpg" alt="MiroFish Demo Video" width="75%"/></a>
 
-点击图片查看基于《红楼梦》前80回数十万字，MiroFish深度预测失传结局
+點擊圖片查看基於《紅樓夢》前80回數十萬字，MiroFish深度預測失傳結局
 </div>
 
-> **金融方向推演预测**、**时政要闻推演预测**等示例陆续更新中...
+> **金融方向推演預測**、**時政要聞推演預測**等示例陸續更新中...
 
 ## 🔄 工作流程
 
-1. **图谱构建**：现实种子提取 & 个体与群体记忆注入 & GraphRAG构建
-2. **环境搭建**：实体关系抽取 & 人设生成 & 环境配置Agent注入仿真参数
-3. **开始模拟**：双平台并行模拟 & 自动解析预测需求 & 动态更新时序记忆
-4. **报告生成**：ReportAgent拥有丰富的工具集与模拟后环境进行深度交互
-5. **深度互动**：与模拟世界中的任意一位进行对话 & 与ReportAgent进行对话
+1. **圖譜構建**：現實種子提取 & 個體與群體記憶注入 & GraphRAG構建
+2. **環境搭建**：實體關係抽取 & 人設生成 & 環境配置Agent注入仿真參數
+3. **開始模擬**：雙平臺並行模擬 & 自動解析預測需求 & 動態更新時序記憶
+4. **報告生成**：ReportAgent擁有豐富的工具集與模擬後環境進行深度交互
+5. **深度互動**：與模擬世界中的任意一位進行對話 & 與ReportAgent進行對話
 
-## 🚀 快速开始
+## 🚀 快速開始
 
-### 一、源码部署（推荐）
+### 一、源碼部署（推薦）
 
 #### 前置要求
 
-| 工具 | 版本要求 | 说明 | 安装检查 |
+| 工具 | 版本要求 | 說明 | 安裝檢查 |
 |------|---------|------|---------|
-| **Node.js** | 18+ | 前端运行环境，包含 npm | `node -v` |
-| **Python** | ≥3.11, ≤3.12 | 后端运行环境 | `python --version` |
+| **Node.js** | 18+ | 前端運行環境，包含 npm | `node -v` |
+| **Python** | ≥3.11, ≤3.12 | 後端運行環境 | `python --version` |
 | **uv** | 最新版 | Python 包管理器 | `uv --version` |
 
-#### 1. 配置环境变量
+#### 1. 配置環境變量
 
 ```bash
-# 复制示例配置文件
+# 複製示例配置文件
 cp .env.example .env
 
-# 编辑 .env 文件，填入必要的 API 密钥
+# 編輯 .env 文件，填入必要的 API 密鑰
 ```
 
-**必需的环境变量：**
+**必需的環境變量：**
 
 ```env
 # LLM API配置（支持 OpenAI SDK 格式的任意 LLM API）
-# 推荐使用阿里百炼平台qwen-plus模型：https://bailian.console.aliyun.com/
-# 注意消耗较大，可先进行小于40轮的模拟尝试
+# 推薦使用阿里百鍊平臺qwen-plus模型：https://bailian.console.aliyun.com/
+# 注意消耗較大，可先進行小於40輪的模擬嘗試
 LLM_API_KEY=your_api_key
 LLM_BASE_URL=https://dashscope.aliyuncs.com/compatible-mode/v1
 LLM_MODEL_NAME=qwen-plus
 
 # Zep Cloud 配置
-# 每月免费额度即可支撑简单使用：https://app.getzep.com/
+# 每月免費額度即可支撐簡單使用：https://app.getzep.com/
 ZEP_API_KEY=your_zep_api_key
 ```
 
-#### 2. 安装依赖
+#### 2. 安裝依賴
 
 ```bash
-# 一键安装所有依赖（根目录 + 前端 + 后端）
+# 一鍵安裝所有依賴（根目錄 + 前端 + 後端）
 npm run setup:all
 ```
 
-或者分步安装：
+或者分步安裝：
 
 ```bash
-# 安装 Node 依赖（根目录 + 前端）
+# 安裝 Node 依賴（根目錄 + 前端）
 npm run setup
 
-# 安装 Python 依赖（后端，自动创建虚拟环境）
+# 安裝 Python 依賴（後端，自動創建虛擬環境）
 npm run setup:backend
 ```
 
-#### 3. 启动服务
+#### 3. 啟動服務
 
 ```bash
-# 同时启动前后端（在项目根目录执行）
+# 同時啟動前後端（在項目根目錄執行）
 npm run dev
 ```
 
-**服务地址：**
+**服務地址：**
 - 前端：`http://localhost:3000`
-- 后端 API：`http://localhost:5001`
+- 後端 API：`http://localhost:5001`
 
-**单独启动：**
+**單獨啟動：**
 
 ```bash
-npm run backend   # 仅启动后端
-npm run frontend  # 仅启动前端
+npm run backend   # 僅啟動後端
+npm run frontend  # 僅啟動前端
 ```
 
 ### 二、Docker 部署
 
 ```bash
-# 1. 配置环境变量（同源码部署）
+# 1. 配置環境變量（同源碼部署）
 cp .env.example .env
 
-# 2. 拉取镜像并启动
+# 2. 拉取鏡像並啟動
 docker compose up -d
 ```
 
-默认会读取根目录下的 `.env`，并映射端口 `3000（前端）/5001（后端）`
+默認會讀取根目錄下的 `.env`，並映射端口 `3000（前端）/5001（後端）`
 
-> 在 `docker-compose.yml` 中已通过注释提供加速镜像地址，可按需替换
+> 在 `docker-compose.yml` 中已通過註釋提供加速鏡像地址，可按需替換
 
 ## 📬 更多交流
 
@@ -184,15 +184,15 @@ docker compose up -d
 
 &nbsp;
 
-MiroFish团队长期招募全职/实习，如果你对多Agent应用感兴趣，欢迎投递简历至：**mirofish@shanda.com**
+MiroFish團隊長期招募全職/實習，如果你對多Agent應用感興趣，歡迎投遞簡歷至：**mirofish@shanda.com**
 
-## 📄 致谢
+## 📄 致謝
 
-**MiroFish 得到了盛大集团的战略支持和孵化！**
+**MiroFish 得到了盛大集團的戰略支持和孵化！**
 
-MiroFish 的仿真引擎由 **[OASIS](https://github.com/camel-ai/oasis)** 驱动，我们衷心感谢 CAMEL-AI 团队的开源贡献！
+MiroFish 的仿真引擎由 **[OASIS](https://github.com/camel-ai/oasis)** 驅動，我們衷心感謝 CAMEL-AI 團隊的開源貢獻！
 
-## 📈 项目统计
+## 📈 項目統計
 
 <a href="https://www.star-history.com/#666ghj/MiroFish&type=date&legend=top-left">
  <picture>

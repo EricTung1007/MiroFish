@@ -1,0 +1,1674 @@
+{
+  "graph_id": "local_3f6ceef6ce1f41aa",
+  "name": "Unnamed Project",
+  "description": "MiroFish local graph",
+  "ontology": {
+    "entity_types": [
+      {
+        "name": "CasualPlayer",
+        "description": "Players who prioritize relaxation and low-stakes gameplay experience.",
+        "attributes": [
+          {
+            "name": "player_level",
+            "type": "text",
+            "description": "The current skill level or experience of thethought_process: The user wants a knowledge graph ontolo"
+          }
+        ],
+        "examples": [
+          "Casual Player A",
+          "Returning Casual User"
+        ]
+      },
+      {
+        "name": "HardcorePlayer",
+        "description": "Highly skilled players focused on high-risk, high-reward gameplay.",
+        "attributes": [
+          {
+            "name": "skill_rating",
+            "type": "text",
+            "description": "The competitive skill level of the player."
+          }
+        ],
+        "examples": [
+          "Pro Player X",
+          "Hardcore Enthusiast"
+        ]
+      },
+      {
+        "name": "LootPlayer",
+        "description": "Players primarily motivated by progression, rare items and looting mechanics.",
+        "attributes": [
+          {
+            "name": "play_style",
+            "type": "text",
+            "description": "The primary motivation for playing."
+          }
+        ],
+        "examples": [
+          "Collector Player",
+          "Loot Hunter"
+        ]
+      },
+      {
+        "name": "PvPplayer",
+        "description": "Players focused on competitive player-vs-player combat.",
+        "attributes": [
+          {
+            "name": "focus_area",
+            "type": "text",
+            "description": "The primary area of interest in combat."
+          }
+        ],
+        "examples": [
+          "Competitive Fighter",
+          "PvP Specialist"
+        ]
+      },
+      {
+        "name": "ContentCreator",
+        "description": "Influencers who create video content about the game.",
+        "attributes": [
+          {
+            "name": "platform_id",
+            "type": "text",
+            "description": "The social media platform where they are active."
+          }
+        ],
+        "examples": [
+          "YouTube Gamer",
+          "Twitch Streamer"
+        ]
+      },
+      {
+        "name": "GameDeveloper",
+        "description": "The team or studio responsible for creating and updating the game.",
+        "attributes": [
+          {
+            "name": "studio_role",
+            "type": "text",
+            "description": "The specific role within the development studio."
+          }
+        ],
+        "examples": [
+          "ARC Raiders Dev Team",
+          "Lead Designer"
+        ]
+      },
+      {
+        "name": "MediaOutlet",
+        "description": "News organizations or specialized gaming media reporting on the game.",
+        "attributes": [
+          {
+            "name": "media_type",
+            "type": "text",
+            "description": "The type of media (e.g., news, blog)."
+          }
+        ],
+        "examples": [
+          "IGN",
+          "GameSpot"
+        ]
+      },
+      {
+        "name": "SocialMediaPlatform",
+        "description": "The digital platforms where the community discusses the game.",
+        "attributes": [
+          {
+            "name": "platform_type",
+            "type": "text",
+            "description": "The type of digital platform (e.g., forum, video)."
+          }
+        ],
+        "examples": [
+          "Reddit",
+          "Discord",
+          "Twitter/X"
+        ]
+      },
+      {
+        "name": "Person",
+        "description": "Any individual person who is not covered by specific types above.",
+        "attributes": [
+          {
+            "name": "full_name",
+            "type": "text",
+            "description": "The name of the individual."
+          }
+        ],
+        "examples": [
+          "Random User",
+          "Anonymous Player"
+        ]
+      },
+      {
+        "name": "Organization",
+        "description": "Any organization or group that is not covered by specific types above.",
+        "attributes": [
+          {
+            "name": "org_name",
+            "type": "text",
+            "description": "The name of the organization."
+          }
+        ],
+        "examples": [
+          "Gaming Association",
+          "Community Group"
+        ]
+      }
+    ],
+    "edge_types": [
+      {
+        "name": "PLAYS",
+        "description": "A player engaging with the game content.",
+        "source_targets": [
+          {
+            "source": "CasualPlayer",
+            "target": "Organization"
+          }
+        ],
+        "attributes": []
+      },
+      {
+        "name": "CREATES_CONTENT",
+        "description": "A content creator producing media about the game.",
+        "source_targets": [
+          {
+            "source": "ContentCreator",
+            "target": "Organization"
+          }
+        ],
+        "attributes": []
+      },
+      {
+        "name": "REPORTS_ON",
+        "description": "A media outlet reporting on the game's update.",
+        "source_targets": [
+          {
+            "source": "MediaOutlet",
+            "target": "Organization"
+          }
+        ],
+        "attributes": []
+      },
+      {
+        "name": "DISCUSSES_ON",
+        "description": "A player or creator discussing the game on a platform.",
+        "source_targets": [
+          {
+            "source": "ContentCreator",
+            "target": "SocialMediaPlatform"
+          },
+          {
+            "source": "CasualPlayer",
+            "target": "SocialMediaPlatform"
+          },
+          {
+            "source": "HardcorePlayer",
+            "target": "SocialMediaPlatform"
+          }
+        ],
+        "attributes": []
+      },
+      {
+        "name": "SUPPORTS",
+        "description": "A player group supporting the update.",
+        "source_targets": [
+          {
+            "source": "CasualPlayer",
+            "target": "Organization"
+          }
+        ],
+        "attributes": []
+      },
+      {
+        "name": "OPPOSES",
+        "description": "A player group opposing the update.",
+        "source_targets": [
+          {
+            "source": "HardcorePlayer",
+            "target": "Organization"
+          }
+        ],
+        "attributes": []
+      },
+      {
+        "name": "REPRESENTS",
+        "description": "A player group representing a specific interest.",
+        "source_targets": [
+          {
+            "source": "LootPlayer",
+            "target": "Organization"
+          }
+        ],
+        "attributes": []
+      },
+      {
+        "name": "COMPETES_WITH",
+        "description": "A competitive relationship between players or groups.",
+        "source_targets": [
+          {
+            "source": "HardcorePlayer",
+            "target": "PvPplayer"
+          }
+        ],
+        "attributes": []
+      },
+      {
+        "name": "REACTION_TO",
+        "description": "A player or creator reacting to the update event.",
+        "source_targets": [
+          {
+            "source": "ContentCreator",
+            "target": "Organization"
+          }
+        ],
+        "attributes": []
+      }
+    ]
+  },
+  "nodes": [
+    {
+      "uuid": "node_ed049cf445ff4524",
+      "name": "ARC Raiders",
+      "labels": [
+        "Entity",
+        "Organization"
+      ],
+      "summary": "Mentioned in source text: ARC Raiders.",
+      "attributes": {},
+      "created_at": "2026-06-27T18:20:46.697967+00:00"
+    },
+    {
+      "uuid": "node_d815a9c55ea2425a",
+      "name": "Game Developer",
+      "labels": [
+        "Entity",
+        "GameDeveloper"
+      ],
+      "summary": "Mentioned in source text: Game Developer.",
+      "attributes": {},
+      "created_at": "2026-06-27T18:20:46.697993+00:00"
+    },
+    {
+      "uuid": "node_41e5f3ed8eff4ea5",
+      "name": "Casual Players",
+      "labels": [
+        "CasualPlayer",
+        "Entity"
+      ],
+      "summary": "Mentioned in source text: Casual Players.",
+      "attributes": {},
+      "created_at": "2026-06-27T18:20:46.698063+00:00"
+    },
+    {
+      "uuid": "node_145ba09536564ac8",
+      "name": "Hardcore Players",
+      "labels": [
+        "Entity",
+        "HardcorePlayer"
+      ],
+      "summary": "Mentioned in source text: Hardcore Players.",
+      "attributes": {},
+      "created_at": "2026-06-27T18:20:46.698178+00:00"
+    },
+    {
+      "uuid": "node_7065c6b5678f48d6",
+      "name": "Loot Players",
+      "labels": [
+        "Entity",
+        "LootPlayer"
+      ],
+      "summary": "Mentioned in source text: Loot Players.",
+      "attributes": {},
+      "created_at": "2026-06-27T18:20:46.698185+00:00"
+    },
+    {
+      "uuid": "node_ff4195c816b64594",
+      "name": "PvP Players",
+      "labels": [
+        "Entity",
+        "PvPplayer"
+      ],
+      "summary": "Mentioned in source text: PvP Players.",
+      "attributes": {},
+      "created_at": "2026-06-27T18:20:46.698189+00:00"
+    },
+    {
+      "uuid": "node_47c6651b8b7f449b",
+      "name": "Content Creators",
+      "labels": [
+        "ContentCreator",
+        "Entity"
+      ],
+      "summary": "Mentioned in source text: Content Creators.",
+      "attributes": {},
+      "created_at": "2026-06-27T18:20:46.698284+00:00"
+    },
+    {
+      "uuid": "node_b61f7f8e4560476f",
+      "name": "Reddit",
+      "labels": [
+        "Entity",
+        "SocialMediaPlatform"
+      ],
+      "summary": "Mentioned in source text: Reddit.",
+      "attributes": {},
+      "created_at": "2026-06-27T18:20:46.698439+00:00"
+    },
+    {
+      "uuid": "node_b211086543394a96",
+      "name": "Discord",
+      "labels": [
+        "Entity",
+        "SocialMediaPlatform"
+      ],
+      "summary": "Mentioned in source text: Discord.",
+      "attributes": {},
+      "created_at": "2026-06-27T18:20:46.698443+00:00"
+    },
+    {
+      "uuid": "node_f0cbe3728cc54e97",
+      "name": "YouTube",
+      "labels": [
+        "Entity",
+        "SocialMediaPlatform"
+      ],
+      "summary": "Mentioned in source text: YouTube.",
+      "attributes": {},
+      "created_at": "2026-06-27T18:20:46.698445+00:00"
+    },
+    {
+      "uuid": "node_8aeae52587864d2e",
+      "name": "Twitter/X",
+      "labels": [
+        "Entity",
+        "SocialMediaPlatform"
+      ],
+      "summary": "Mentioned in source text: Twitter/X.",
+      "attributes": {},
+      "created_at": "2026-06-27T18:20:46.698448+00:00"
+    }
+  ],
+  "edges": [
+    {
+      "uuid": "edge_e4026bdf53564468",
+      "name": "REACTION_TO",
+      "fact": "ARC Raiders is relevant to the community reaction around Game Developer.",
+      "fact_type": "REACTION_TO",
+      "source_node_uuid": "node_ed049cf445ff4524",
+      "target_node_uuid": "node_d815a9c55ea2425a",
+      "source_node_name": "ARC Raiders",
+      "target_node_name": "Game Developer",
+      "attributes": {},
+      "created_at": "2026-06-27T18:20:46.698081+00:00",
+      "valid_at": null,
+      "invalid_at": null,
+      "expired_at": null,
+      "episodes": []
+    },
+    {
+      "uuid": "edge_c4f5f5ea126b443b",
+      "name": "REACTION_TO",
+      "fact": "Casual Players is relevant to the community reaction around Game Developer.",
+      "fact_type": "REACTION_TO",
+      "source_node_uuid": "node_41e5f3ed8eff4ea5",
+      "target_node_uuid": "node_d815a9c55ea2425a",
+      "source_node_name": "Casual Players",
+      "target_node_name": "Game Developer",
+      "attributes": {},
+      "created_at": "2026-06-27T18:20:46.698110+00:00",
+      "valid_at": null,
+      "invalid_at": null,
+      "expired_at": null,
+      "episodes": []
+    },
+    {
+      "uuid": "edge_4aa89573fd484303",
+      "name": "REACTION_TO",
+      "fact": "Casual Players is relevant to the community reaction around ARC Raiders.",
+      "fact_type": "REACTION_TO",
+      "source_node_uuid": "node_41e5f3ed8eff4ea5",
+      "target_node_uuid": "node_ed049cf445ff4524",
+      "source_node_name": "Casual Players",
+      "target_node_name": "ARC Raiders",
+      "attributes": {},
+      "created_at": "2026-06-27T18:20:46.698195+00:00",
+      "valid_at": null,
+      "invalid_at": null,
+      "expired_at": null,
+      "episodes": []
+    },
+    {
+      "uuid": "edge_2aff3c5713a64a43",
+      "name": "REACTION_TO",
+      "fact": "Hardcore Players is relevant to the community reaction around ARC Raiders.",
+      "fact_type": "REACTION_TO",
+      "source_node_uuid": "node_145ba09536564ac8",
+      "target_node_uuid": "node_ed049cf445ff4524",
+      "source_node_name": "Hardcore Players",
+      "target_node_name": "ARC Raiders",
+      "attributes": {},
+      "created_at": "2026-06-27T18:20:46.698199+00:00",
+      "valid_at": null,
+      "invalid_at": null,
+      "expired_at": null,
+      "episodes": []
+    },
+    {
+      "uuid": "edge_2c0fcb6b20f348d1",
+      "name": "REACTION_TO",
+      "fact": "Loot Players is relevant to the community reaction around ARC Raiders.",
+      "fact_type": "REACTION_TO",
+      "source_node_uuid": "node_7065c6b5678f48d6",
+      "target_node_uuid": "node_ed049cf445ff4524",
+      "source_node_name": "Loot Players",
+      "target_node_name": "ARC Raiders",
+      "attributes": {},
+      "created_at": "2026-06-27T18:20:46.698203+00:00",
+      "valid_at": null,
+      "invalid_at": null,
+      "expired_at": null,
+      "episodes": []
+    },
+    {
+      "uuid": "edge_a16b2bb0287d4688",
+      "name": "REACTION_TO",
+      "fact": "PvP Players is relevant to the community reaction around ARC Raiders.",
+      "fact_type": "REACTION_TO",
+      "source_node_uuid": "node_ff4195c816b64594",
+      "target_node_uuid": "node_ed049cf445ff4524",
+      "source_node_name": "PvP Players",
+      "target_node_name": "ARC Raiders",
+      "attributes": {},
+      "created_at": "2026-06-27T18:20:46.698206+00:00",
+      "valid_at": null,
+      "invalid_at": null,
+      "expired_at": null,
+      "episodes": []
+    },
+    {
+      "uuid": "edge_24818d8f0c6d4b2b",
+      "name": "REACTION_TO",
+      "fact": "PvP Players is relevant to the community reaction around Game Developer.",
+      "fact_type": "REACTION_TO",
+      "source_node_uuid": "node_ff4195c816b64594",
+      "target_node_uuid": "node_d815a9c55ea2425a",
+      "source_node_name": "PvP Players",
+      "target_node_name": "Game Developer",
+      "attributes": {},
+      "created_at": "2026-06-27T18:20:46.698294+00:00",
+      "valid_at": null,
+      "invalid_at": null,
+      "expired_at": null,
+      "episodes": []
+    },
+    {
+      "uuid": "edge_5ab8be3a5a384e05",
+      "name": "REACTION_TO",
+      "fact": "Content Creators is relevant to the community reaction around Game Developer.",
+      "fact_type": "REACTION_TO",
+      "source_node_uuid": "node_47c6651b8b7f449b",
+      "target_node_uuid": "node_d815a9c55ea2425a",
+      "source_node_name": "Content Creators",
+      "target_node_name": "Game Developer",
+      "attributes": {},
+      "created_at": "2026-06-27T18:20:46.698299+00:00",
+      "valid_at": null,
+      "invalid_at": null,
+      "expired_at": null,
+      "episodes": []
+    },
+    {
+      "uuid": "edge_104badb796304673",
+      "name": "REACTION_TO",
+      "fact": "Loot Players is relevant to the community reaction around Game Developer.",
+      "fact_type": "REACTION_TO",
+      "source_node_uuid": "node_7065c6b5678f48d6",
+      "target_node_uuid": "node_d815a9c55ea2425a",
+      "source_node_name": "Loot Players",
+      "target_node_name": "Game Developer",
+      "attributes": {},
+      "created_at": "2026-06-27T18:20:46.698334+00:00",
+      "valid_at": null,
+      "invalid_at": null,
+      "expired_at": null,
+      "episodes": []
+    },
+    {
+      "uuid": "edge_c305aa7350ba4e22",
+      "name": "REACTION_TO",
+      "fact": "Hardcore Players is relevant to the community reaction around Game Developer.",
+      "fact_type": "REACTION_TO",
+      "source_node_uuid": "node_145ba09536564ac8",
+      "target_node_uuid": "node_d815a9c55ea2425a",
+      "source_node_name": "Hardcore Players",
+      "target_node_name": "Game Developer",
+      "attributes": {},
+      "created_at": "2026-06-27T18:20:46.698395+00:00",
+      "valid_at": null,
+      "invalid_at": null,
+      "expired_at": null,
+      "episodes": []
+    },
+    {
+      "uuid": "edge_93d76a47c2a1458b",
+      "name": "DISCUSSES_ON",
+      "fact": "Reddit is relevant to the community reaction around Game Developer.",
+      "fact_type": "DISCUSSES_ON",
+      "source_node_uuid": "node_b61f7f8e4560476f",
+      "target_node_uuid": "node_d815a9c55ea2425a",
+      "source_node_name": "Reddit",
+      "target_node_name": "Game Developer",
+      "attributes": {},
+      "created_at": "2026-06-27T18:20:46.698453+00:00",
+      "valid_at": null,
+      "invalid_at": null,
+      "expired_at": null,
+      "episodes": []
+    },
+    {
+      "uuid": "edge_3873d055db9949fc",
+      "name": "DISCUSSES_ON",
+      "fact": "Discord is relevant to the community reaction around Game Developer.",
+      "fact_type": "DISCUSSES_ON",
+      "source_node_uuid": "node_b211086543394a96",
+      "target_node_uuid": "node_d815a9c55ea2425a",
+      "source_node_name": "Discord",
+      "target_node_name": "Game Developer",
+      "attributes": {},
+      "created_at": "2026-06-27T18:20:46.698457+00:00",
+      "valid_at": null,
+      "invalid_at": null,
+      "expired_at": null,
+      "episodes": []
+    },
+    {
+      "uuid": "edge_c3274caf23454f72",
+      "name": "DISCUSSES_ON",
+      "fact": "YouTube is relevant to the community reaction around Game Developer.",
+      "fact_type": "DISCUSSES_ON",
+      "source_node_uuid": "node_f0cbe3728cc54e97",
+      "target_node_uuid": "node_d815a9c55ea2425a",
+      "source_node_name": "YouTube",
+      "target_node_name": "Game Developer",
+      "attributes": {},
+      "created_at": "2026-06-27T18:20:46.698459+00:00",
+      "valid_at": null,
+      "invalid_at": null,
+      "expired_at": null,
+      "episodes": []
+    },
+    {
+      "uuid": "edge_fb3dc928fe8e4c89",
+      "name": "DISCUSSES_ON",
+      "fact": "Twitter/X is relevant to the community reaction around Game Developer.",
+      "fact_type": "DISCUSSES_ON",
+      "source_node_uuid": "node_8aeae52587864d2e",
+      "target_node_uuid": "node_d815a9c55ea2425a",
+      "source_node_name": "Twitter/X",
+      "target_node_name": "Game Developer",
+      "attributes": {},
+      "created_at": "2026-06-27T18:20:46.698463+00:00",
+      "valid_at": null,
+      "invalid_at": null,
+      "expired_at": null,
+      "episodes": []
+    }
+  ],
+  "episodes": [
+    {
+      "uuid": "episode_89c8ad69cd97",
+      "data": "=== arc_raiders_update_seed.md ===\n# ARC Raiders Update Community Reaction Seed\n\n## Background\n\nARC Raiders is a multiplayer extraction shooter. The game had a strong initial player base, but many casual players have recently stopped playing because the loop feels repetitive. A common complaint is that there is not enough meaningful new content. Players say that the “goop” mechanic, which used to feel important and exciting, now feels pointless because it no longer changes how people play.",
+      "processed": true,
+      "created_at": 1782584446.6984901
+    },
+    {
+      "uuid": "episode_15871da2e08d",
+      "data": "ess because it no longer changes how people play.\n\nThe active community is now split into several groups:\n\n1. Casual players who enjoyed the game at launch but feel there is nothing new to do.\n2. Hardcore players who still enjoy the core gunplay and extraction tension.\n3. Loot-focused players who want stronger progression, more rare items, and more reasons to take risks.\n4. PvP-focused players who worry that adding too many PvE systems will weaken the competitive identity.",
+      "processed": true,
+      "created_at": 1782584446.6984918
+    },
+    {
+      "uuid": "episode_e3c07371b03d",
+      "data": "PvE systems will weaken the competitive identity.\n5. Content creators who need new updates, drama, balance changes, or big events to make videos.\n\n## Current Problems\n\nMany players describe the game as fun but stale. They do not necessarily hate the game, but they feel no urgency to return. The main complaints are:\n\n- The extraction loop is too similar after many matches.\n- The goop system no longer feels meaningful.\n- There are not enough new maps, enemies, objectives, or social systems.",
+      "processed": true,
+      "created_at": 1782584446.698494
+    },
+    {
+      "uuid": "episode_31c1a02fb69a",
+      "data": "new maps, enemies, objectives, or social systems.\n- Loot does not create enough long-term motivation.\n- Casual players feel punished for returning late because active players are already better and more optimized.\n- Content creators have less to discuss, which reduces the game’s visibility.\n\n## Proposed Update\n\nThe developer announces an update called “Containment Surge.”\n\nThe update includes:\n\n1. A limited-time world event where goop contamination spreads across the map over two weeks.",
+      "processed": true,
+      "created_at": 1782584446.698496
+    },
+    {
+      "uuid": "episode_b04a5ad0fcfd",
+      "data": "tamination spreads across the map over two weeks.\n2. Goop-contaminated zones contain stronger enemies, rare crafting materials, and unstable extraction points.\n3. Players can now use goop to modify weapons with temporary traits, but modified weapons can become unstable and break after several raids.\n4. New public objectives appear mid-match, forcing teams to decide whether to cooperate, fight, or avoid the area.",
+      "processed": true,
+      "created_at": 1782584446.698497
+    },
+    {
+      "uuid": "episode_87b5814b86e9",
+      "data": "e whether to cooperate, fight, or avoid the area.\n5. A returning-player bonus gives inactive players three protected runs with reduced gear loss.\n6. The developer says this update is experimental and may be adjusted based on player feedback.",
+      "processed": true,
+      "created_at": 1782584446.698499
+    },
+    {
+      "uuid": "episode_54401b877082",
+      "data": "tal and may be adjusted based on player feedback.\n\n## Stakeholders\n\nCasual players may return if the update feels fresh and forgiving. Hardcore players may like the increased risk and chaos. PvP players may complain if unstable extraction points or public objectives feel too random. Loot players may like the new crafting materials if rewards are meaningful. Content creators may make videos if the event creates visible drama and unusual match outcomes.",
+      "processed": true,
+      "created_at": 1782584446.698501
+    },
+    {
+      "uuid": "episode_0346f35b817d",
+      "data": "creates visible drama and unusual match outcomes.\n\n## Uncertainty\n\nThe main uncertainty is whether players will see this update as a real evolution of the game or just a temporary gimmick. Another uncertainty is whether the goop weapon modification system will feel exciting or annoying. If modified weapons break too often, players may reject the system. If rewards are too strong, players may call it unfair. If rewards are too weak, players may ignore the event.",
+      "processed": true,
+      "created_at": 1782584446.698503
+    },
+    {
+      "uuid": "episode_b8cdcdc40a3e",
+      "data": "wards are too weak, players may ignore the event.\n\n---\n\n# Simulation Prompt\n\nSimulate the community reaction to the “Containment Surge” update over the first 14 days after announcement and release.\n\nFocus on:\n\n1. Whether lapsed casual players are likely to return.\n2. Whether the goop mechanic becomes meaningful again.\n3. Which player groups support or reject the update.\n4. What controversies appear on Reddit, Discord, YouTube, and Twitter/X.",
+      "processed": true,
+      "created_at": 1782584446.698505
+    },
+    {
+      "uuid": "episode_7f6c748e2ab7",
+      "data": "ppear on Reddit, Discord, YouTube, and Twitter/X.\n5. Whether the update improves player retention after the initial curiosity spike.\n\nGenerate a prediction report with:\n\n- Day-by-day sentiment trend\n- Major supporter groups\n- Major critic groups\n- Likely failure points\n- Recommended developer actions\n- Confidence level and reasons",
+      "processed": true,
+      "created_at": 1782584446.6985059
+    }
+  ],
+  "created_at": "2026-06-27T18:20:46.673416+00:00",
+  "updated_at": "2026-06-27T19:26:56.676428+00:00",
+  "activities": [
+    {
+      "uuid": "activity_050de2b263f5",
+      "created_at": "2026-06-27T18:32:28.923021+00:00",
+      "data": {
+        "platform": "twitter",
+        "text": "PvP Players: 发布了一条帖子：「Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming」\nHardcore Players: 发布了一条帖子：「The grind never stops. 🎮 #HardcoreGamer #GamingLife」\nContent Creators: 点赞了Hardcore Players的帖子：「The grind never stops. 🎮 #HardcoreGamer #GamingLife」\nARC Raiders: 点赞了PvP Players的帖子：「Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming」\nYouTube: 点赞了Hardcore Players的帖子：「The grind never stops. 🎮 #HardcoreGamer #GamingLife」",
+        "activities": [
+          {
+            "platform": "twitter",
+            "agent_id": 5,
+            "agent_name": "PvP Players",
+            "action_type": "CREATE_POST",
+            "action_args": {
+              "content": "Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming",
+              "post_id": 1
+            },
+            "round_num": 10,
+            "timestamp": "2026-06-28T02:29:12.087994"
+          },
+          {
+            "platform": "twitter",
+            "agent_id": 3,
+            "agent_name": "Hardcore Players",
+            "action_type": "CREATE_POST",
+            "action_args": {
+              "content": "The grind never stops. 🎮 #HardcoreGamer #GamingLife",
+              "post_id": 2
+            },
+            "round_num": 10,
+            "timestamp": "2026-06-28T02:29:12.089110"
+          },
+          {
+            "platform": "twitter",
+            "agent_id": 6,
+            "agent_name": "Content Creators",
+            "action_type": "LIKE_POST",
+            "action_args": {
+              "post_id": 2,
+              "like_id": 1,
+              "post_content": "The grind never stops. 🎮 #HardcoreGamer #GamingLife",
+              "post_author_name": "Hardcore Players"
+            },
+            "round_num": 11,
+            "timestamp": "2026-06-28T02:32:27.827675"
+          },
+          {
+            "platform": "twitter",
+            "agent_id": 0,
+            "agent_name": "ARC Raiders",
+            "action_type": "LIKE_POST",
+            "action_args": {
+              "post_id": 1,
+              "like_id": 2,
+              "post_content": "Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming",
+              "post_author_name": "PvP Players"
+            },
+            "round_num": 11,
+            "timestamp": "2026-06-28T02:32:27.828725"
+          },
+          {
+            "platform": "twitter",
+            "agent_id": 9,
+            "agent_name": "YouTube",
+            "action_type": "LIKE_POST",
+            "action_args": {
+              "post_id": 2,
+              "like_id": 3,
+              "post_content": "The grind never stops. 🎮 #HardcoreGamer #GamingLife",
+              "post_author_name": "Hardcore Players"
+            },
+            "round_num": 11,
+            "timestamp": "2026-06-28T02:32:27.829499"
+          }
+        ]
+      }
+    },
+    {
+      "uuid": "activity_184112b8ea9a",
+      "created_at": "2026-06-27T18:35:47.508977+00:00",
+      "data": {
+        "platform": "twitter",
+        "text": "Hardcore Players: 点赞了PvP Players的帖子：「Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming」\nLoot Players: 点赞了PvP Players的帖子：「Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming」\nDiscord: 点赞了Hardcore Players的帖子：「The grind never stops. 🎮 #HardcoreGamer #GamingLife」\nCasual Players: 点赞了PvP Players的帖子：「Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming」\nHardcore Players: 引用了PvP Players的帖子「Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming」，并评论道：「I'm always down for a challenge. Let's go! ⚔️ #PvP #HardcoreGaming」",
+        "activities": [
+          {
+            "platform": "twitter",
+            "agent_id": 3,
+            "agent_name": "Hardcore Players",
+            "action_type": "LIKE_POST",
+            "action_args": {
+              "post_id": 1,
+              "like_id": 4,
+              "post_content": "Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming",
+              "post_author_name": "PvP Players"
+            },
+            "round_num": 12,
+            "timestamp": "2026-06-28T02:34:07.681974"
+          },
+          {
+            "platform": "twitter",
+            "agent_id": 4,
+            "agent_name": "Loot Players",
+            "action_type": "LIKE_POST",
+            "action_args": {
+              "post_id": 1,
+              "like_id": 5,
+              "post_content": "Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming",
+              "post_author_name": "PvP Players"
+            },
+            "round_num": 12,
+            "timestamp": "2026-06-28T02:34:07.682617"
+          },
+          {
+            "platform": "twitter",
+            "agent_id": 8,
+            "agent_name": "Discord",
+            "action_type": "LIKE_POST",
+            "action_args": {
+              "post_id": 2,
+              "like_id": 6,
+              "post_content": "The grind never stops. 🎮 #HardcoreGamer #GamingLife",
+              "post_author_name": "Hardcore Players"
+            },
+            "round_num": 12,
+            "timestamp": "2026-06-28T02:34:07.683019"
+          },
+          {
+            "platform": "twitter",
+            "agent_id": 2,
+            "agent_name": "Casual Players",
+            "action_type": "LIKE_POST",
+            "action_args": {
+              "post_id": 1,
+              "like_id": 7,
+              "post_content": "Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming",
+              "post_author_name": "PvP Players"
+            },
+            "round_num": 13,
+            "timestamp": "2026-06-28T02:35:47.086894"
+          },
+          {
+            "platform": "twitter",
+            "agent_id": 3,
+            "agent_name": "Hardcore Players",
+            "action_type": "QUOTE_POST",
+            "action_args": {
+              "quoted_id": 1,
+              "new_post_id": 3,
+              "original_content": "Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming",
+              "original_author_name": "PvP Players",
+              "quote_content": "I'm always down for a challenge. Let's go! ⚔️ #PvP #HardcoreGaming"
+            },
+            "round_num": 13,
+            "timestamp": "2026-06-28T02:35:47.087905"
+          }
+        ]
+      }
+    },
+    {
+      "uuid": "activity_b0fa054c068d",
+      "created_at": "2026-06-27T18:38:05.881114+00:00",
+      "data": {
+        "platform": "reddit",
+        "text": "PvP Players: 搜索了「PvP」\nYouTube: 搜索了「news」\nHardcore Players: 搜索了「hardcore gaming」\nTwitter/X: 搜索了「news」\nYouTube: 搜索了用户「news」",
+        "activities": [
+          {
+            "platform": "reddit",
+            "agent_id": 5,
+            "agent_name": "PvP Players",
+            "action_type": "SEARCH_POSTS",
+            "action_args": {
+              "query": "PvP"
+            },
+            "round_num": 19,
+            "timestamp": "2026-06-28T02:36:08.141075"
+          },
+          {
+            "platform": "reddit",
+            "agent_id": 9,
+            "agent_name": "YouTube",
+            "action_type": "SEARCH_POSTS",
+            "action_args": {
+              "query": "news"
+            },
+            "round_num": 19,
+            "timestamp": "2026-06-28T02:36:08.141824"
+          },
+          {
+            "platform": "reddit",
+            "agent_id": 3,
+            "agent_name": "Hardcore Players",
+            "action_type": "SEARCH_POSTS",
+            "action_args": {
+              "query": "hardcore gaming"
+            },
+            "round_num": 20,
+            "timestamp": "2026-06-28T02:38:04.583812"
+          },
+          {
+            "platform": "reddit",
+            "agent_id": 10,
+            "agent_name": "Twitter/X",
+            "action_type": "SEARCH_POSTS",
+            "action_args": {
+              "query": "news"
+            },
+            "round_num": 20,
+            "timestamp": "2026-06-28T02:38:04.584513"
+          },
+          {
+            "platform": "reddit",
+            "agent_id": 9,
+            "agent_name": "YouTube",
+            "action_type": "SEARCH_USER",
+            "action_args": {
+              "query": "news"
+            },
+            "round_num": 20,
+            "timestamp": "2026-06-28T02:38:04.585156"
+          }
+        ]
+      }
+    },
+    {
+      "uuid": "activity_463965adb542",
+      "created_at": "2026-06-27T18:39:24.123968+00:00",
+      "data": {
+        "platform": "twitter",
+        "text": "Reddit: 引用了PvP Players的帖子「Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming」，并评论道：「The gaming community is always looking for the next big challenge. What's your go-to PvP game right now?」\nLoot Players: 点赞了Hardcore Players的帖子：「Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming」\nPvP Players: 点赞了Hardcore Players的帖子：「Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming」\nDiscord: 点赞了PvP Players的帖子：「Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming」\nCasual Players: 点赞了Hardcore Players的帖子：「Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming」",
+        "activities": [
+          {
+            "platform": "twitter",
+            "agent_id": 7,
+            "agent_name": "Reddit",
+            "action_type": "QUOTE_POST",
+            "action_args": {
+              "quoted_id": 1,
+              "new_post_id": 4,
+              "original_content": "Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming",
+              "original_author_name": "PvP Players",
+              "quote_content": "The gaming community is always looking for the next big challenge. What's your go-to PvP game right now?"
+            },
+            "round_num": 13,
+            "timestamp": "2026-06-28T02:35:47.088699"
+          },
+          {
+            "platform": "twitter",
+            "agent_id": 4,
+            "agent_name": "Loot Players",
+            "action_type": "LIKE_POST",
+            "action_args": {
+              "post_id": 3,
+              "like_id": 8,
+              "post_content": "Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming",
+              "post_author_name": "Hardcore Players"
+            },
+            "round_num": 14,
+            "timestamp": "2026-06-28T02:37:04.653350"
+          },
+          {
+            "platform": "twitter",
+            "agent_id": 5,
+            "agent_name": "PvP Players",
+            "action_type": "LIKE_POST",
+            "action_args": {
+              "post_id": 3,
+              "like_id": 9,
+              "post_content": "Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming",
+              "post_author_name": "Hardcore Players"
+            },
+            "round_num": 14,
+            "timestamp": "2026-06-28T02:37:04.653974"
+          },
+          {
+            "platform": "twitter",
+            "agent_id": 8,
+            "agent_name": "Discord",
+            "action_type": "LIKE_POST",
+            "action_args": {
+              "post_id": 1,
+              "like_id": 10,
+              "post_content": "Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming",
+              "post_author_name": "PvP Players"
+            },
+            "round_num": 19,
+            "timestamp": "2026-06-28T02:39:22.581199"
+          },
+          {
+            "platform": "twitter",
+            "agent_id": 2,
+            "agent_name": "Casual Players",
+            "action_type": "LIKE_POST",
+            "action_args": {
+              "post_id": 3,
+              "like_id": 11,
+              "post_content": "Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming",
+              "post_author_name": "Hardcore Players"
+            },
+            "round_num": 19,
+            "timestamp": "2026-06-28T02:39:22.582160"
+          }
+        ]
+      }
+    },
+    {
+      "uuid": "activity_d4c9c2a48857",
+      "created_at": "2026-06-27T18:41:24.513593+00:00",
+      "data": {
+        "platform": "twitter",
+        "text": "YouTube: 转发了PvP Players的帖子：「Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming」\nTwitter/X: 点赞了Hardcore Players的帖子：「The grind never stops. 🎮 #HardcoreGamer #GamingLife」\nLoot Players: 引用了PvP Players的帖子「Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming」，并评论道：「Count me in! Let's see who gets the best loot! 🎮 #PvP #Gaming」\nDiscord: 转发了PvP Players的帖子：「Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming」\nPvP Players: 关注了用户「Hardcore Players」",
+        "activities": [
+          {
+            "platform": "twitter",
+            "agent_id": 9,
+            "agent_name": "YouTube",
+            "action_type": "REPOST",
+            "action_args": {
+              "new_post_id": 5,
+              "original_content": "Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming",
+              "original_author_name": "PvP Players"
+            },
+            "round_num": 19,
+            "timestamp": "2026-06-28T02:39:22.583014"
+          },
+          {
+            "platform": "twitter",
+            "agent_id": 10,
+            "agent_name": "Twitter/X",
+            "action_type": "LIKE_POST",
+            "action_args": {
+              "post_id": 2,
+              "like_id": 12,
+              "post_content": "The grind never stops. 🎮 #HardcoreGamer #GamingLife",
+              "post_author_name": "Hardcore Players"
+            },
+            "round_num": 19,
+            "timestamp": "2026-06-28T02:39:22.583857"
+          },
+          {
+            "platform": "twitter",
+            "agent_id": 4,
+            "agent_name": "Loot Players",
+            "action_type": "QUOTE_POST",
+            "action_args": {
+              "quoted_id": 1,
+              "new_post_id": 6,
+              "original_content": "Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming",
+              "original_author_name": "PvP Players",
+              "quote_content": "Count me in! Let's see who gets the best loot! 🎮 #PvP #Gaming"
+            },
+            "round_num": 20,
+            "timestamp": "2026-06-28T02:41:24.334470"
+          },
+          {
+            "platform": "twitter",
+            "agent_id": 8,
+            "agent_name": "Discord",
+            "action_type": "REPOST",
+            "action_args": {
+              "new_post_id": 7,
+              "original_content": "Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming",
+              "original_author_name": "PvP Players"
+            },
+            "round_num": 20,
+            "timestamp": "2026-06-28T02:41:24.335359"
+          },
+          {
+            "platform": "twitter",
+            "agent_id": 5,
+            "agent_name": "PvP Players",
+            "action_type": "FOLLOW",
+            "action_args": {
+              "follow_id": 1,
+              "target_user_name": "Hardcore Players"
+            },
+            "round_num": 20,
+            "timestamp": "2026-06-28T02:41:24.336105"
+          }
+        ]
+      }
+    },
+    {
+      "uuid": "activity_ace18c99f256",
+      "created_at": "2026-06-27T18:42:54.793522+00:00",
+      "data": {
+        "platform": "reddit",
+        "text": "YouTube: 搜索了「breaking news」\nPvP Players: 搜索了用户「gaming」\nGame Developer: 搜索了「game development」\nReddit: 搜索了「news」\nDiscord: 搜索了「news」",
+        "activities": [
+          {
+            "platform": "reddit",
+            "agent_id": 9,
+            "agent_name": "YouTube",
+            "action_type": "SEARCH_POSTS",
+            "action_args": {
+              "query": "breaking news"
+            },
+            "round_num": 21,
+            "timestamp": "2026-06-28T02:38:57.473475"
+          },
+          {
+            "platform": "reddit",
+            "agent_id": 5,
+            "agent_name": "PvP Players",
+            "action_type": "SEARCH_USER",
+            "action_args": {
+              "query": "gaming"
+            },
+            "round_num": 23,
+            "timestamp": "2026-06-28T02:41:45.707231"
+          },
+          {
+            "platform": "reddit",
+            "agent_id": 1,
+            "agent_name": "Game Developer",
+            "action_type": "SEARCH_POSTS",
+            "action_args": {
+              "query": "game development"
+            },
+            "round_num": 23,
+            "timestamp": "2026-06-28T02:41:45.708111"
+          },
+          {
+            "platform": "reddit",
+            "agent_id": 7,
+            "agent_name": "Reddit",
+            "action_type": "SEARCH_POSTS",
+            "action_args": {
+              "query": "news"
+            },
+            "round_num": 23,
+            "timestamp": "2026-06-28T02:41:45.708932"
+          },
+          {
+            "platform": "reddit",
+            "agent_id": 8,
+            "agent_name": "Discord",
+            "action_type": "SEARCH_POSTS",
+            "action_args": {
+              "query": "news"
+            },
+            "round_num": 24,
+            "timestamp": "2026-06-28T02:42:54.535931"
+          }
+        ]
+      }
+    },
+    {
+      "uuid": "activity_c866ccfb2944",
+      "created_at": "2026-06-27T18:43:20.870959+00:00",
+      "data": {
+        "platform": "twitter",
+        "text": "Casual Players: 转发了PvP Players的帖子：「Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming」\nCasual Players: 引用了PvP Players的帖子「Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming」，并评论道：「Count me in! Always looking for a good challenge. #PvP #Gaming」\nGame Developer: 点赞了PvP Players的帖子：「Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming」\nLoot Players: 关注了用户「PvP Players」\nTwitter/X: 转发了PvP Players的帖子：「Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming」",
+        "activities": [
+          {
+            "platform": "twitter",
+            "agent_id": 2,
+            "agent_name": "Casual Players",
+            "action_type": "REPOST",
+            "action_args": {
+              "new_post_id": 8,
+              "original_content": "Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming",
+              "original_author_name": "PvP Players"
+            },
+            "round_num": 20,
+            "timestamp": "2026-06-28T02:41:24.337606"
+          },
+          {
+            "platform": "twitter",
+            "agent_id": 2,
+            "agent_name": "Casual Players",
+            "action_type": "QUOTE_POST",
+            "action_args": {
+              "quoted_id": 1,
+              "new_post_id": 9,
+              "original_content": "Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming",
+              "original_author_name": "PvP Players",
+              "quote_content": "Count me in! Always looking for a good challenge. #PvP #Gaming"
+            },
+            "round_num": 21,
+            "timestamp": "2026-06-28T02:43:19.919906"
+          },
+          {
+            "platform": "twitter",
+            "agent_id": 1,
+            "agent_name": "Game Developer",
+            "action_type": "LIKE_POST",
+            "action_args": {
+              "post_id": 1,
+              "like_id": 13,
+              "post_content": "Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming",
+              "post_author_name": "PvP Players"
+            },
+            "round_num": 21,
+            "timestamp": "2026-06-28T02:43:19.920834"
+          },
+          {
+            "platform": "twitter",
+            "agent_id": 4,
+            "agent_name": "Loot Players",
+            "action_type": "FOLLOW",
+            "action_args": {
+              "follow_id": 2,
+              "target_user_name": "PvP Players"
+            },
+            "round_num": 21,
+            "timestamp": "2026-06-28T02:43:19.921611"
+          },
+          {
+            "platform": "twitter",
+            "agent_id": 10,
+            "agent_name": "Twitter/X",
+            "action_type": "REPOST",
+            "action_args": {
+              "new_post_id": 10,
+              "original_content": "Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming",
+              "original_author_name": "PvP Players"
+            },
+            "round_num": 21,
+            "timestamp": "2026-06-28T02:43:19.922346"
+          }
+        ]
+      }
+    },
+    {
+      "uuid": "activity_56d554bd559f",
+      "created_at": "2026-06-27T18:45:39.346307+00:00",
+      "data": {
+        "platform": "twitter",
+        "text": "YouTube: 引用了PvP Players的帖子「Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming」，并评论道：「The gaming community is heating up! 🎮 #GamingNews」\nTwitter/X: 引用了PvP Players的帖子「Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming」，并评论道：「Gaming is heating up! What's your favorite way to compete in PvP? 🎮 #GamingNews」\nGame Developer: 转发了PvP Players的帖子：「Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming」\nYouTube: 点赞了PvP Players的帖子：「Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming」\nReddit: 点赞了Casual Players的帖子：「Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming」",
+        "activities": [
+          {
+            "platform": "twitter",
+            "agent_id": 9,
+            "agent_name": "YouTube",
+            "action_type": "QUOTE_POST",
+            "action_args": {
+              "quoted_id": 1,
+              "new_post_id": 11,
+              "original_content": "Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming",
+              "original_author_name": "PvP Players",
+              "quote_content": "The gaming community is heating up! 🎮 #GamingNews"
+            },
+            "round_num": 21,
+            "timestamp": "2026-06-28T02:43:19.923151"
+          },
+          {
+            "platform": "twitter",
+            "agent_id": 10,
+            "agent_name": "Twitter/X",
+            "action_type": "QUOTE_POST",
+            "action_args": {
+              "quoted_id": 1,
+              "new_post_id": 12,
+              "original_content": "Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming",
+              "original_author_name": "PvP Players",
+              "quote_content": "Gaming is heating up! What's your favorite way to compete in PvP? 🎮 #GamingNews"
+            },
+            "round_num": 22,
+            "timestamp": "2026-06-28T02:45:38.629183"
+          },
+          {
+            "platform": "twitter",
+            "agent_id": 1,
+            "agent_name": "Game Developer",
+            "action_type": "REPOST",
+            "action_args": {
+              "new_post_id": 13,
+              "original_content": "Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming",
+              "original_author_name": "PvP Players"
+            },
+            "round_num": 22,
+            "timestamp": "2026-06-28T02:45:38.630324"
+          },
+          {
+            "platform": "twitter",
+            "agent_id": 9,
+            "agent_name": "YouTube",
+            "action_type": "LIKE_POST",
+            "action_args": {
+              "post_id": 1,
+              "like_id": 14,
+              "post_content": "Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming",
+              "post_author_name": "PvP Players"
+            },
+            "round_num": 22,
+            "timestamp": "2026-06-28T02:45:38.631059"
+          },
+          {
+            "platform": "twitter",
+            "agent_id": 7,
+            "agent_name": "Reddit",
+            "action_type": "LIKE_POST",
+            "action_args": {
+              "post_id": 9,
+              "like_id": 15,
+              "post_content": "Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming",
+              "post_author_name": "Casual Players"
+            },
+            "round_num": 22,
+            "timestamp": "2026-06-28T02:45:38.631676"
+          }
+        ]
+      }
+    },
+    {
+      "uuid": "activity_4e9b981eabe9",
+      "created_at": "2026-06-27T18:45:41.358640+00:00",
+      "data": {
+        "platform": "reddit",
+        "text": "Reddit: 发布了一条帖子：「Breaking News: The digital landscape is evolving rapidly. Stay tuned for more updates on how social media platforms are shaping public discourse! #News #DigitalTrends」\nContent Creators: 点赞了Reddit的帖子：「Breaking News: The digital landscape is evolving rapidly. Stay tuned for more updates on how social media platforms are shaping public discourse! #News #DigitalTrends」\nDiscord: 点赞了Reddit的帖子：「Breaking News: The digital landscape is evolving rapidly. Stay tuned for more updates on how social media platforms are shaping public discourse! #News #DigitalTrends」\nYouTube: 点赞了Reddit的帖子：「Breaking News: The digital landscape is evolving rapidly. Stay tuned for more updates on how social media platforms are shaping public discourse! #News #DigitalTrends」\nLoot Players: 点赞了Reddit的帖子：「Breaking News: The digital landscape is evolving rapidly. Stay tuned for more updates on how social media platforms are shaping public discourse! #News #DigitalTrends」",
+        "activities": [
+          {
+            "platform": "reddit",
+            "agent_id": 7,
+            "agent_name": "Reddit",
+            "action_type": "CREATE_POST",
+            "action_args": {
+              "content": "Breaking News: The digital landscape is evolving rapidly. Stay tuned for more updates on how social media platforms are shaping public discourse! #News #DigitalTrends",
+              "post_id": 1
+            },
+            "round_num": 24,
+            "timestamp": "2026-06-28T02:42:54.536666"
+          },
+          {
+            "platform": "reddit",
+            "agent_id": 6,
+            "agent_name": "Content Creators",
+            "action_type": "LIKE_POST",
+            "action_args": {
+              "post_id": 1,
+              "like_id": 1,
+              "post_content": "Breaking News: The digital landscape is evolving rapidly. Stay tuned for more updates on how social media platforms are shaping public discourse! #News #DigitalTrends",
+              "post_author_name": "Reddit"
+            },
+            "round_num": 34,
+            "timestamp": "2026-06-28T02:43:55.568739"
+          },
+          {
+            "platform": "reddit",
+            "agent_id": 8,
+            "agent_name": "Discord",
+            "action_type": "LIKE_POST",
+            "action_args": {
+              "post_id": 1,
+              "like_id": 2,
+              "post_content": "Breaking News: The digital landscape is evolving rapidly. Stay tuned for more updates on how social media platforms are shaping public discourse! #News #DigitalTrends",
+              "post_author_name": "Reddit"
+            },
+            "round_num": 34,
+            "timestamp": "2026-06-28T02:43:55.569711"
+          },
+          {
+            "platform": "reddit",
+            "agent_id": 9,
+            "agent_name": "YouTube",
+            "action_type": "LIKE_POST",
+            "action_args": {
+              "post_id": 1,
+              "like_id": 3,
+              "post_content": "Breaking News: The digital landscape is evolving rapidly. Stay tuned for more updates on how social media platforms are shaping public discourse! #News #DigitalTrends",
+              "post_author_name": "Reddit"
+            },
+            "round_num": 34,
+            "timestamp": "2026-06-28T02:43:55.570641"
+          },
+          {
+            "platform": "reddit",
+            "agent_id": 4,
+            "agent_name": "Loot Players",
+            "action_type": "LIKE_POST",
+            "action_args": {
+              "post_id": 1,
+              "like_id": 4,
+              "post_content": "Breaking News: The digital landscape is evolving rapidly. Stay tuned for more updates on how social media platforms are shaping public discourse! #News #DigitalTrends",
+              "post_author_name": "Reddit"
+            },
+            "round_num": 35,
+            "timestamp": "2026-06-28T02:45:39.437327"
+          }
+        ]
+      }
+    },
+    {
+      "uuid": "activity_e452198eb4e6",
+      "created_at": "2026-06-27T18:48:35.973190+00:00",
+      "data": {
+        "platform": "reddit",
+        "text": "PvP Players: 点赞了Reddit的帖子：「Breaking News: The digital landscape is evolving rapidly. Stay tuned for more updates on how social media platforms are shaping public discourse! #News #DigitalTrends」\nTwitter/X: 点赞了Reddit的帖子：「Breaking News: The digital landscape is evolving rapidly. Stay tuned for more updates on how social media platforms are shaping public discourse! #News #DigitalTrends」\nPvP Players: 评论道：「The digital landscape is definitely changing, especially with how gaming and social interaction are merging! #GamingLife」\nYouTube: 评论道：「Indeed! The intersection of technology and social interaction is a key topic we will be monitoring closely. #DigitalTransformation」\nPvP Players: 搜索了「gaming」",
+        "activities": [
+          {
+            "platform": "reddit",
+            "agent_id": 5,
+            "agent_name": "PvP Players",
+            "action_type": "LIKE_POST",
+            "action_args": {
+              "post_id": 1,
+              "like_id": 5,
+              "post_content": "Breaking News: The digital landscape is evolving rapidly. Stay tuned for more updates on how social media platforms are shaping public discourse! #News #DigitalTrends",
+              "post_author_name": "Reddit"
+            },
+            "round_num": 35,
+            "timestamp": "2026-06-28T02:45:39.438503"
+          },
+          {
+            "platform": "reddit",
+            "agent_id": 10,
+            "agent_name": "Twitter/X",
+            "action_type": "LIKE_POST",
+            "action_args": {
+              "post_id": 1,
+              "like_id": 6,
+              "post_content": "Breaking News: The digital landscape is evolving rapidly. Stay tuned for more updates on how social media platforms are shaping public discourse! #News #DigitalTrends",
+              "post_author_name": "Reddit"
+            },
+            "round_num": 36,
+            "timestamp": "2026-06-28T02:46:34.431039"
+          },
+          {
+            "platform": "reddit",
+            "agent_id": 5,
+            "agent_name": "PvP Players",
+            "action_type": "CREATE_COMMENT",
+            "action_args": {
+              "content": "The digital landscape is definitely changing, especially with how gaming and social interaction are merging! #GamingLife",
+              "comment_id": 1
+            },
+            "round_num": 36,
+            "timestamp": "2026-06-28T02:46:34.431613"
+          },
+          {
+            "platform": "reddit",
+            "agent_id": 9,
+            "agent_name": "YouTube",
+            "action_type": "CREATE_COMMENT",
+            "action_args": {
+              "content": "Indeed! The intersection of technology and social interaction is a key topic we will be monitoring closely. #DigitalTransformation",
+              "comment_id": 2
+            },
+            "round_num": 38,
+            "timestamp": "2026-06-28T02:48:34.084280"
+          },
+          {
+            "platform": "reddit",
+            "agent_id": 5,
+            "agent_name": "PvP Players",
+            "action_type": "SEARCH_POSTS",
+            "action_args": {
+              "query": "gaming"
+            },
+            "round_num": 38,
+            "timestamp": "2026-06-28T02:48:34.085295"
+          }
+        ]
+      }
+    },
+    {
+      "uuid": "activity_20a81f754821",
+      "created_at": "2026-06-27T18:48:52.019818+00:00",
+      "data": {
+        "platform": "twitter",
+        "text": "Casual Players: 点赞了Casual Players的帖子：「Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming」\nYouTube: 发布了一条帖子：「Competitive gaming is seeing a surge in interest! 🎮 What are your favorite PvP games to jump into? #GamingNews #PvP」\nPvP Players: 点赞了Hardcore Players的帖子：「The grind never stops. 🎮 #HardcoreGamer #GamingLife」\nARC Raiders: 点赞了Casual Players的帖子：「Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming」\nGame Developer: 引用了PvP Players的帖子「Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming」，并评论道：「PvP balance is always tricky! Good luck finding your matches! #GameDev」",
+        "activities": [
+          {
+            "platform": "twitter",
+            "agent_id": 2,
+            "agent_name": "Casual Players",
+            "action_type": "LIKE_POST",
+            "action_args": {
+              "post_id": 9,
+              "like_id": 16,
+              "post_content": "Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming",
+              "post_author_name": "Casual Players"
+            },
+            "round_num": 23,
+            "timestamp": "2026-06-28T02:46:33.923853"
+          },
+          {
+            "platform": "twitter",
+            "agent_id": 9,
+            "agent_name": "YouTube",
+            "action_type": "CREATE_POST",
+            "action_args": {
+              "content": "Competitive gaming is seeing a surge in interest! 🎮 What are your favorite PvP games to jump into? #GamingNews #PvP",
+              "post_id": 14
+            },
+            "round_num": 24,
+            "timestamp": "2026-06-28T02:47:24.548789"
+          },
+          {
+            "platform": "twitter",
+            "agent_id": 5,
+            "agent_name": "PvP Players",
+            "action_type": "LIKE_POST",
+            "action_args": {
+              "post_id": 2,
+              "like_id": 17,
+              "post_content": "The grind never stops. 🎮 #HardcoreGamer #GamingLife",
+              "post_author_name": "Hardcore Players"
+            },
+            "round_num": 24,
+            "timestamp": "2026-06-28T02:47:24.549720"
+          },
+          {
+            "platform": "twitter",
+            "agent_id": 0,
+            "agent_name": "ARC Raiders",
+            "action_type": "LIKE_POST",
+            "action_args": {
+              "post_id": 9,
+              "like_id": 18,
+              "post_content": "Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming",
+              "post_author_name": "Casual Players"
+            },
+            "round_num": 34,
+            "timestamp": "2026-06-28T02:48:19.725642"
+          },
+          {
+            "platform": "twitter",
+            "agent_id": 1,
+            "agent_name": "Game Developer",
+            "action_type": "QUOTE_POST",
+            "action_args": {
+              "quoted_id": 1,
+              "new_post_id": 15,
+              "original_content": "Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming",
+              "original_author_name": "PvP Players",
+              "quote_content": "PvP balance is always tricky! Good luck finding your matches! #GameDev"
+            },
+            "round_num": 35,
+            "timestamp": "2026-06-28T02:48:50.905563"
+          }
+        ]
+      }
+    },
+    {
+      "uuid": "activity_9c598d03dec7",
+      "created_at": "2026-06-27T18:50:44.403053+00:00",
+      "data": {
+        "platform": "twitter",
+        "text": "Loot Players: 点赞了Twitter/X的帖子：「Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming」\nARC Raiders: 点赞了Twitter/X的帖子：「Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming」\nGame Developer: 引用了YouTube的帖子「Competitive gaming is seeing a surge in interest! 🎮 What are your favorite PvP games to jump into? #GamingNews #PvP」，并评论道：「As a developer, I'm always watching these trends! #GameDev #PvP」\nPvP Players: 引用了PvP Players的帖子「Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming」，并评论道：「I'm definitely up for a challenge! #PvP #GamingLife」\nARC Raiders: 转发了Twitter/X的帖子：「Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming」",
+        "activities": [
+          {
+            "platform": "twitter",
+            "agent_id": 4,
+            "agent_name": "Loot Players",
+            "action_type": "LIKE_POST",
+            "action_args": {
+              "post_id": 12,
+              "like_id": 19,
+              "post_content": "Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming",
+              "post_author_name": "Twitter/X"
+            },
+            "round_num": 36,
+            "timestamp": "2026-06-28T02:49:39.863846"
+          },
+          {
+            "platform": "twitter",
+            "agent_id": 0,
+            "agent_name": "ARC Raiders",
+            "action_type": "LIKE_POST",
+            "action_args": {
+              "post_id": 12,
+              "like_id": 20,
+              "post_content": "Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming",
+              "post_author_name": "Twitter/X"
+            },
+            "round_num": 36,
+            "timestamp": "2026-06-28T02:49:39.864451"
+          },
+          {
+            "platform": "twitter",
+            "agent_id": 1,
+            "agent_name": "Game Developer",
+            "action_type": "QUOTE_POST",
+            "action_args": {
+              "quoted_id": 14,
+              "new_post_id": 16,
+              "original_content": "Competitive gaming is seeing a surge in interest! 🎮 What are your favorite PvP games to jump into? #GamingNews #PvP",
+              "original_author_name": "YouTube",
+              "quote_content": "As a developer, I'm always watching these trends! #GameDev #PvP"
+            },
+            "round_num": 37,
+            "timestamp": "2026-06-28T02:50:43.625336"
+          },
+          {
+            "platform": "twitter",
+            "agent_id": 5,
+            "agent_name": "PvP Players",
+            "action_type": "QUOTE_POST",
+            "action_args": {
+              "quoted_id": 1,
+              "new_post_id": 17,
+              "original_content": "Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming",
+              "original_author_name": "PvP Players",
+              "quote_content": "I'm definitely up for a challenge! #PvP #GamingLife"
+            },
+            "round_num": 37,
+            "timestamp": "2026-06-28T02:50:43.626570"
+          },
+          {
+            "platform": "twitter",
+            "agent_id": 0,
+            "agent_name": "ARC Raiders",
+            "action_type": "REPOST",
+            "action_args": {
+              "new_post_id": 18,
+              "original_content": "Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming",
+              "original_author_name": "Twitter/X"
+            },
+            "round_num": 37,
+            "timestamp": "2026-06-28T02:50:43.627362"
+          }
+        ]
+      }
+    },
+    {
+      "uuid": "activity_f7d6c1d3858d",
+      "created_at": "2026-06-27T19:26:56.670221+00:00",
+      "data": {
+        "platform": "twitter",
+        "text": "Reddit: 引用了YouTube的帖子「Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming」，并评论道：「The gaming community is definitely seeing more activity in the competitive scene! Stay tuned for more updates. #GamingNews」\nYouTube: 点赞了Game Developer的帖子：「Competitive gaming is seeing a surge in interest! 🎮 What are your favorite PvP games to jump into? #GamingNews #PvP」\nCasual Players: 点赞了YouTube的帖子：「Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming」",
+        "activities": [
+          {
+            "platform": "twitter",
+            "agent_id": 7,
+            "agent_name": "Reddit",
+            "action_type": "QUOTE_POST",
+            "action_args": {
+              "quoted_id": 11,
+              "new_post_id": 19,
+              "original_content": "Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming",
+              "original_author_name": "YouTube",
+              "quote_content": "The gaming community is definitely seeing more activity in the competitive scene! Stay tuned for more updates. #GamingNews"
+            },
+            "round_num": 38,
+            "timestamp": "2026-06-28T02:51:32.140440"
+          },
+          {
+            "platform": "twitter",
+            "agent_id": 9,
+            "agent_name": "YouTube",
+            "action_type": "LIKE_POST",
+            "action_args": {
+              "post_id": 16,
+              "like_id": 21,
+              "post_content": "Competitive gaming is seeing a surge in interest! 🎮 What are your favorite PvP games to jump into? #GamingNews #PvP",
+              "post_author_name": "Game Developer"
+            },
+            "round_num": 38,
+            "timestamp": "2026-06-28T02:51:32.141458"
+          },
+          {
+            "platform": "twitter",
+            "agent_id": 2,
+            "agent_name": "Casual Players",
+            "action_type": "LIKE_POST",
+            "action_args": {
+              "post_id": 11,
+              "like_id": 22,
+              "post_content": "Looking for some intense PvP matches! Who's up for a challenge? #PvP #Gaming",
+              "post_author_name": "YouTube"
+            },
+            "round_num": 38,
+            "timestamp": "2026-06-28T02:51:32.142264"
+          }
+        ]
+      }
+    },
+    {
+      "uuid": "activity_069e134c5a28",
+      "created_at": "2026-06-27T19:26:56.676414+00:00",
+      "data": {
+        "platform": "reddit",
+        "text": "Twitter/X: 点赞了PvP Players的评论：「The digital landscape is definitely changing, especially with how gaming and social interaction are merging! #GamingLife」",
+        "activities": [
+          {
+            "platform": "reddit",
+            "agent_id": 10,
+            "agent_name": "Twitter/X",
+            "action_type": "LIKE_COMMENT",
+            "action_args": {
+              "comment_id": 1,
+              "comment_content": "The digital landscape is definitely changing, especially with how gaming and social interaction are merging! #GamingLife",
+              "comment_author_name": "PvP Players"
+            },
+            "round_num": 38,
+            "timestamp": "2026-06-28T02:48:34.086040"
+          }
+        ]
+      }
+    }
+  ]
+}

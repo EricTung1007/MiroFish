@@ -1,7 +1,11 @@
 import { createI18n } from 'vue-i18n'
 import languages from '../../../locales/languages.json'
 
-const localeFiles = import.meta.glob('../../../locales/!(languages).json', { eager: true })
+const localeFiles = import.meta.glob([
+  '../../../locales/*.json',
+  '!../../../locales/languages.json',
+  '!../../../locales/._*.json'
+], { eager: true })
 
 const messages = {}
 const availableLocales = []

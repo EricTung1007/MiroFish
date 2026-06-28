@@ -1,0 +1,274 @@
+{
+  "graph_id": "local_c27494230ceb4b90",
+  "name": "Unnamed Project",
+  "description": "MiroFish local graph",
+  "ontology": {
+    "entity_types": [
+      {
+        "name": "CasualPlayer",
+        "description": "Players who prioritize relaxation and low-stakes gameplay experience.",
+        "attributes": [
+          {
+            "name": "player_level",
+            "type": "text",
+            "description": "The current skill level or experience of thethought_process: The user wants a knowledge graph ontolo"
+          }
+        ],
+        "examples": [
+          "Casual Player A",
+          "Returning Casual User"
+        ]
+      },
+      {
+        "name": "HardcorePlayer",
+        "description": "Highly skilled players focused on high-risk, high-reward gameplay.",
+        "attributes": [
+          {
+            "name": "skill_rating",
+            "type": "text",
+            "description": "The competitive skill level of the player."
+          }
+        ],
+        "examples": [
+          "Pro Player X",
+          "Hardcore Enthusiast"
+        ]
+      },
+      {
+        "name": "LootPlayer",
+        "description": "Players primarily motivated by progression, rare items and looting mechanics.",
+        "attributes": [
+          {
+            "name": "play_style",
+            "type": "text",
+            "description": "The primary motivation for playing."
+          }
+        ],
+        "examples": [
+          "Collector Player",
+          "Loot Hunter"
+        ]
+      },
+      {
+        "name": "PvPplayer",
+        "description": "Players focused on competitive player-vs-player combat.",
+        "attributes": [
+          {
+            "name": "focus_area",
+            "type": "text",
+            "description": "The primary area of interest in combat."
+          }
+        ],
+        "examples": [
+          "Competitive Fighter",
+          "PvP Specialist"
+        ]
+      },
+      {
+        "name": "ContentCreator",
+        "description": "Influencers who create video content about the game.",
+        "attributes": [
+          {
+            "name": "platform_id",
+            "type": "text",
+            "description": "The social media platform where they are active."
+          }
+        ],
+        "examples": [
+          "YouTube Gamer",
+          "Twitch Streamer"
+        ]
+      },
+      {
+        "name": "GameDeveloper",
+        "description": "The team or studio responsible for creating and updating the game.",
+        "attributes": [
+          {
+            "name": "studio_role",
+            "type": "text",
+            "description": "The specific role within the development studio."
+          }
+        ],
+        "examples": [
+          "ARC Raiders Dev Team",
+          "Lead Designer"
+        ]
+      },
+      {
+        "name": "MediaOutlet",
+        "description": "News organizations or specialized gaming media reporting on the game.",
+        "attributes": [
+          {
+            "name": "media_type",
+            "type": "text",
+            "description": "The type of media (e.g., news, blog)."
+          }
+        ],
+        "examples": [
+          "IGN",
+          "GameSpot"
+        ]
+      },
+      {
+        "name": "SocialMediaPlatform",
+        "description": "The digital platforms where the community discusses the game.",
+        "attributes": [
+          {
+            "name": "platform_type",
+            "type": "text",
+            "description": "The type of digital platform (e.g., forum, video)."
+          }
+        ],
+        "examples": [
+          "Reddit",
+          "Discord",
+          "Twitter/X"
+        ]
+      },
+      {
+        "name": "Person",
+        "description": "Any individual person who is not covered by specific types above.",
+        "attributes": [
+          {
+            "name": "full_name",
+            "type": "text",
+            "description": "The name of the individual."
+          }
+        ],
+        "examples": [
+          "Random User",
+          "Anonymous Player"
+        ]
+      },
+      {
+        "name": "Organization",
+        "description": "Any organization or group that is not covered by specific types above.",
+        "attributes": [
+          {
+            "name": "org_name",
+            "type": "text",
+            "description": "The name of the organization."
+          }
+        ],
+        "examples": [
+          "Gaming Association",
+          "Community Group"
+        ]
+      }
+    ],
+    "edge_types": [
+      {
+        "name": "PLAYS",
+        "description": "A player engaging with the game content.",
+        "source_targets": [
+          {
+            "source": "CasualPlayer",
+            "target": "Organization"
+          }
+        ],
+        "attributes": []
+      },
+      {
+        "name": "CREATES_CONTENT",
+        "description": "A content creator producing media about the game.",
+        "source_targets": [
+          {
+            "source": "ContentCreator",
+            "target": "Organization"
+          }
+        ],
+        "attributes": []
+      },
+      {
+        "name": "REPORTS_ON",
+        "description": "A media outlet reporting on the game's update.",
+        "source_targets": [
+          {
+            "source": "MediaOutlet",
+            "target": "Organization"
+          }
+        ],
+        "attributes": []
+      },
+      {
+        "name": "DISCUSSES_ON",
+        "description": "A player or creator discussing the game on a platform.",
+        "source_targets": [
+          {
+            "source": "ContentCreator",
+            "target": "SocialMediaPlatform"
+          },
+          {
+            "source": "CasualPlayer",
+            "target": "SocialMediaPlatform"
+          },
+          {
+            "source": "HardcorePlayer",
+            "target": "SocialMediaPlatform"
+          }
+        ],
+        "attributes": []
+      },
+      {
+        "name": "SUPPORTS",
+        "description": "A player group supporting the update.",
+        "source_targets": [
+          {
+            "source": "CasualPlayer",
+            "target": "Organization"
+          }
+        ],
+        "attributes": []
+      },
+      {
+        "name": "OPPOSES",
+        "description": "A player group opposing the update.",
+        "source_targets": [
+          {
+            "source": "HardcorePlayer",
+            "target": "Organization"
+          }
+        ],
+        "attributes": []
+      },
+      {
+        "name": "REPRESENTS",
+        "description": "A player group representing a specific interest.",
+        "source_targets": [
+          {
+            "source": "LootPlayer",
+            "target": "Organization"
+          }
+        ],
+        "attributes": []
+      },
+      {
+        "name": "COMPETES_WITH",
+        "description": "A competitive relationship between players or groups.",
+        "source_targets": [
+          {
+            "source": "HardcorePlayer",
+            "target": "PvPplayer"
+          }
+        ],
+        "attributes": []
+      },
+      {
+        "name": "REACTION_TO",
+        "description": "A player or creator reacting to the update event.",
+        "source_targets": [
+          {
+            "source": "ContentCreator",
+            "target": "Organization"
+          }
+        ],
+        "attributes": []
+      }
+    ]
+  },
+  "nodes": [],
+  "edges": [],
+  "episodes": [],
+  "created_at": "2026-06-27T18:09:42.723762+00:00",
+  "updated_at": "2026-06-27T18:09:42.726723+00:00"
+}
